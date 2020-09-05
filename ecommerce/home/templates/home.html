@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container-fluid text-center">
+ <div class="row">
+  <div class="col-lg-12 mt-2  ">
+   <img src="{% static 'images/jaljeevika.png' %}" alt="">
+   
+<div class="contacts ml-5" style="display: inline-block;">
+ 
+<a href="#" class="mx-4"><i class="fas fa-phone"></i> +917499779629</a>
+<a href="" class="mx-2"><img src="{% static 'images/youtube.png' %}" alt="" srcset=""></a>
+<a href="" class="mx-2"><img src="{% static 'images/facebook.png' %}" alt="" srcset=""></a>
+<a href="" class="mx-2"><img src="{% static 'images/linkdin.png' %}" alt="" srcset=""></a>
+<a href="" class="mx-2"><img src="{% static 'images/insta.jfif' %}" alt="" srcset=""></a>
+<a href="" class="mx-2"><img src="{% static 'images/twitter.webp' %}" alt="" srcset=""></a>
+</div>
+<br>
+<div class="text-center my-2">
+<a href="http://" class="btn btn-outline-success text-center" >Visit Us &#8594;</a>
+{% if user.is_authenticated and user.is_staff  %}
+
+{% elif user.is_authenticated %}
+
+<a href="{% url 'fpo_register' %}" class="btn btn-outline-success  text-center" style="opacity: 1;">Register As An FPO </a>
+
+{% else %}
+<a href="{% url 'signup' %}" class="btn btn-outline-success text-center" style="opacity: 1;">Register As An User</a>
+{% endif %}
+  </div>
+ </div>
+</div>
+<!-- ----------------------------- image------------------------------------------ -->
+
+<div class="container ">
+<div class="row">
+<div class="col-lg-12 text-center ">
+<img class="img-fluid"  src="{% static 'images/farm3.jpg' %}" alt="">
+{% comment %} <a href="{% url 'fpo_register' %}" class="btn btn-outline-success  text-center" style="opacity: 1;">Register As An FPO </a> {% endcomment %}
+</div>
+
+
+</div>
+</div>
+
+
+{% comment %} <div class="container ">
+<div class="row">
+<div class="col-lg-12 text-center ">
+<img  class="img-fluid" src="{% static 'images/farm3.jpg' %}" alt="">
+<a href="{% url 'signup' %}" class="btn btn-outline-success text-center" style="opacity: 1;">Register As An User</a>
+</div>
+ 
+<
+</div>
+</div> {% endcomment %}
+
+
+<!-- ----------------------------- image------------------------------------------ -->
+<!-- --------------------------------Reagistration -------------------------------------------- -->
+<div class="container mt-4">
+  <div class="row">
+    <div class="col-lg-7  box-element text-center">
+      <h3 class="text-center text-secondary">About Us</h3>
+      <hr>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, quo minus nihil distinctio animi libero quaerat. A ipsum omnis odio facere magni ducimus doloremque iste, neque libero ad reprehenderit voluptatum?
+        Lorem ipsum, dolor sit amet consectetur adipisicing elit. Odio nobis adipisci voluptate. Quibusdam modi excepturi maxime saepe eos amet eius sed quisquam debitis magni. Vero nostrum libero corporis id ipsum.
+      </p>
+      
+    </div>
+    <div class="col-lg-4 offset-lg-1 box-element">
+      <h3 class="text-center text-secondary">Upcoming Meetings</h3>
+      <hr>
+    </div>
+  </div>
+</div>
+<!-- ------------------------- services-------------------------- -->
+<div class="container mt-4">
+  <hr>
+  <h4 class="text-center text-secondary">Services</h4>
+  <br>
+  <div class="row">
+    <div class="col-lg-12  box-element ma">
+      <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+        </ol>
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="jumbotron">
+              <h1 class="text-center">Third</h1>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="jumbotron">
+              <h1 class="text-center">First</h1>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="jumbotron">
+              <h1 class="text-center">Second</h1>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- The slideshow -->
+  
+<!-- ---------------------------- footer-------------------------- -->
+<div class="footer mt-5">
+  <p>Footer</p>
+</div>
+
+{% endblock %}

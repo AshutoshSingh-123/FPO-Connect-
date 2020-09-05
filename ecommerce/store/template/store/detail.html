@@ -1,0 +1,82 @@
+{% extends 'store/main.html' %}
+{% load static %}
+{% block content %}
+<h1>{{user.fpo_name}}</h1>
+
+<!-- <div class="row">
+ <div class="col-lg-6 mt-2">
+  <div class="box-element" id="form-wrapper">
+   <form action="" id="form">
+    <div id="user-info">
+     <div class="form-field">
+      <input required class="form-control" type="text" name="Name" placeholder="Name..." id="">
+      </div>
+     <div class="form-field">
+       <input required class="form-control" type="email" name="email" placeholder="Email..." id="">
+     </div>
+     
+    </div>
+    <div id="shipping-info">
+<hr>
+<p>Shipping Information:</p>
+<hr>
+<div class="form-field">
+ <input required class="form-control" type="text" name="address" placeholder="Address..." id="">
+</div>
+<div class="form-field">
+ <input required class="form-control" type="text" name="city" placeholder="City..." id="">
+</div>
+<div class="form-field">
+ <input required class="form-control" type="text" name="state" placeholder="State..." id="">
+</div>
+<div class="form-field">
+ <input required class="form-control" type="text" name="zipcode" placeholder="Zip code..." id="">
+</div>
+<div class="form-field">
+ <input required class="form-control" type="text" name="address" placeholder="Address..." id="">
+</div>
+    </div>
+    <hr>
+    <input id="form-button" class="btn btn-success btn-block" type="submit" value="Continue">
+   </form>
+
+  </div>
+  <br>
+  <div class="box-element hidden" id="payment-info">
+<small>Paypal Option</small>
+  </div>
+ </div>
+ <div class="col-lg-6 mt-2">
+  <div class="box-element">
+  <a class="btn btn-outline-dark" href="{% url 'cart' %}">&#x2190; Back to Cart</a>
+  <hr>
+  <h3>Order Summary</h3>
+  <hr>
+  <div class="box-element my-2">
+<div class="cart-row">
+   <div style="flex: 2;"></div>
+   <div style="flex: 2;" class="mt-4 text-success"><h6>Item</h6></div>
+   <div style="flex: 2;" class="mt-4  text-success "><h6>Price</h6></div>
+   <div style="flex: 2;" class="mt-4 text-success"><h6>Quantity</h6></div>
+   
+   
+   
+  </div>
+  </div>
+  {% for cart in carts  %}
+  <div class="cart-row">
+   <div style="flex: 2;"><img style="width: 100px;" class="img-fluid" src="{{cart.img.url}}" alt=""></div>
+   <div style="flex: 2;" class="mt-4">{{cart.name}}</div>
+   <div style="flex: 2;" class="mt-4">{{cart.price}}</div>
+   <div style="flex: 2;" class="mt-4">1</div>
+   
+   
+   
+  </div>
+  {% endfor %}
+  <h5>Items: {{total_items}}</h5>
+  <h5>Total: {{total_price}}</h5>
+  </div>
+ </div>
+</div> -->
+{% endblock %}

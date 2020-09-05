@@ -1,0 +1,78 @@
+{% extends 'store/main.html' %} {% load static %} {% block content %}
+ <div class="container">
+  <div class="row">
+    
+    <div class="col-lg-8 ">
+    <div class="wrapper">
+      <div class="links box-element">
+        <ul>
+          <li data-view="list-view" class="li-list active">
+            <i class="fas fa-th-list"></i>
+            List View</li>
+          <li data-view="grid-view" class="li-grid">
+            <i class="fas fa-th-large"></i>
+            Grid View</li>
+        </ul>
+      </div>
+      <div class="view_main">
+        <div class="view_wrap list-view" style="display: block;">
+          
+          {% for product in products %}
+          
+          <div class="view_item box-element">
+            <div class="vi_left">
+                
+              <img src="{{product.product_img1.url}}" alt="potato">
+            </div>
+            <div class="vi_right">
+              <p class="title text-black" style="display: inline;">{{product.product_name}}</p>
+              <p><b>By: </b>{{product.product_by}}</p>
+              <p class="content">{{product.product_description|slice:"0:50"}}...</p>
+              <div class="btn">View</div>
+              <p style="display: inline;">${{product.product_price}}</p>
+              {% if user.is_authenticated  %}
+              <a href="/market/{{product.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i> </a>
+              {%endif%}
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="view_wrap grid-view" style="display: none;">
+          
+          
+          {% for product in products %}
+          
+          <div class="view_item box-element">
+            <div class="vi_left">
+              
+              <img src="{{product.product_img1.url}}" alt="strawberry">
+            </div>
+            <div class="vi_right">
+              <p class="title text-success">{{product.product_name}}</p>
+              <p>${{product.product_price}}</p>
+              <p class="content">{{product.product_description|slice:"0:50"}}....</p>
+              <div class="btn px-5" style="display: inline;">View</div>
+              <a href="/market/{{product.id}}/" class=" ml-3"  text-dark"> <i style="color:green" class="fas fa-plus"></i> </a>
+            </div>
+          </div>
+    {% endfor %}
+        </div>
+      </div>
+    </div>
+      
+      
+
+      
+    </div>
+    <div class="col-lg-1"></div>
+    <div class="col-lg-3 mt-5" >
+      <img src="{% static 'images/farm3.jpg' %}" class="img-fluid mt-5" alt="">
+      <form action="" method="POST" class="mt-2 ">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search..." />
+      </form>
+    </div>
+  </div>
+</div> 
+
+{% endblock %}
