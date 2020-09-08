@@ -1,0 +1,280 @@
+{% extends 'store/main.html' %} {% load static %} {% block content %}
+
+<!-- </div>  -->
+<div class="container mt-3">
+ <h2><b>Rating: </b>
+  {% if product.rating == 0 %}
+  <span>N/A</span>
+  <i>{{product.rating}}/5</i>
+{%endif%}
+  {% if product.rating == 1 %}
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star "></span>
+  <span class="fa fa-star "></span>
+  <span class="fa fa-star"></span>
+  <span class="fa fa-star"></span>
+  {{product.rating}}/5
+{%endif%}
+  {% if product.rating == 2 %}
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star "></span>
+  <span class="fa fa-star"></span>
+  <span class="fa fa-star"></span>
+  {{product.rating}}/5
+{%endif%}
+  {% if product.rating == 3 %}
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star"></span>
+  <span class="fa fa-star"></span>
+  {{product.rating}}/5
+{%endif%}
+  {% if product.rating == 4 %}
+  <span class="fa fa-star  checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star"></span>
+  {{product.rating}}/5
+{%endif%}
+  {% if product.rating == 5 %}
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  <span class="fa fa-star checked"></span>
+  {{product.rating}}/5
+{%endif%}
+</h2>
+ {% if request.user == product.product_by %}
+  <a class="btn btn-danger my-4" href="#"> Delete</a>
+  <a class="btn btn-secondary my-4" href="#"> Update</a>
+ {%endif%}
+ <br>
+ <!-- Nav tabs -->
+ <ul class="nav nav-tabs">
+  <li class="nav-item">
+   <a class="nav-link active" data-toggle="tab" href="#home">Description</a>
+  </li>
+  <li class="nav-item">
+   <a class="nav-link" data-toggle="tab" href="#menu1">Similar Products</a>
+  </li>
+  <li class="nav-item">
+   <a class="nav-link" data-toggle="tab" href="#menu2">Products By Same FPO</a>
+  </li>
+  <li class="nav-item">
+   <a class="nav-link" data-toggle="tab" href="#menu3">About FPO</a>
+  </li>
+ </ul>
+
+ <!-- Tab panes -->
+ <div class="tab-content box-element">
+  <div id="home" class="container tab-pane active"><br>
+     <section id="gallary" class="">
+      <div class="container ">
+       <h3 class="font-weight-bolder ">{{product.product_name}}</h3>
+       <div class="row">
+        <div class="col-md-6">
+         <!--Carousel Wrapper-->
+         <div id="carousel-example-1z" class="carousel slide carousel-fade carousel-fade mt-3" data-ride="carousel">
+          <!--Indicators-->
+          <ol class="carousel-indicators ">
+           <li data-target="#carousel-example-1z" data-slide-to="0" class="active" ></li>
+           <li data-target="#carousel-example-1z" data-slide-to="1"></li>
+           <li data-target="#carousel-example-1z" data-slide-to="2"></li>
+           <li data-target="#carousel-example-1z" data-slide-to="4"></li>
+           <li data-target="#carousel-example-1z" data-slide-to="5"></li>
+          </ol>
+          <!--/.Indicators-->
+          <!--Slides-->
+          <div class="carousel-inner z-depth-1-half " role="listbox">
+           <!--First slide-->
+           <div class="row">
+             <div  class="col-lg-8 pl-5 ml-5">
+<div  class="carousel-item active " ">
+            <img  style="border-top: 4px solid #65ba82;"  class=" d-block w-100 img-fluid  img-thumbnail" src="{{product.product_img1.url}}" alt="First slide">
+</div>
+<!--/First slide-->
+<!--Second slide-->
+<div class="carousel-item ">
+  <img  style="border-top: 4px solid #65ba82;" class="d-block w-100 img-fluid img-thumbnail" src="{{product.product_img2.url}}" alt="Second slide">
+</div>
+<!--/Second slide-->
+<!--Third slide-->
+<div class="carousel-item">
+  <img  style="border-top: 4px solid #65ba82;" class="d-block w-100 img-fluid img-thumbnail" src="{{product.product_img3.url}}" alt="Third slide">
+</div>
+<div class="carousel-item">
+  <img  style="border-top: 4px solid #65ba82;" class="d-block w-100 img-fluid img-thumbnail" src="{{product.product_img4.url}}" alt="Third slide">
+</div>
+<div class="carousel-item">
+  <img  style="border-top: 4px solid #65ba82;" class="d-block w-100 img-fluid img-thumbnail" src="{{product.product_img5.url}}" alt="Third slide">
+</div>
+
+             </div>
+           </div>
+           
+           <!--/Third slide-->
+          </div>
+          <!--/.Slides-->
+          <!--Controls-->
+          <a class="carousel-control-prev" href="#carousel-example-1z" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon " aria-hidden="true"></span>
+            <span class="sr-only text-success">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carousel-example-1z" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+          <!--/.Controls-->
+          
+         </div>
+     
+        </div>
+        
+        <div class="col-md-5 ">
+     
+         <h2 class="my-3 text-success"><span class="fa fa-heart fa-1x text-success "></span> Details</h2>
+         <div id="productDescription">
+          
+          <table id="descriptionTable">
+           <tr>
+            <td ><b>Name</b> </td>
+            <td>{{product.product_name}}</td>
+           </tr>
+           <tr>
+            <td><b>Price</b> </td>
+            <td>{{product.product_price}}</td>
+           </tr>
+           <tr>
+            <td><b>Category</b></td>
+            <td>{{product.product_category}}</td>
+           </tr>
+          </table>
+         
+          
+          <div id="addToCart" class="my-2">
+            
+           <a href="/market/onview_page/{{product.id}}" class="text-success">Add to Cart <i class="fa fa-plus"></i></a>
+          </div>
+         </div>
+         <p class="text-left ml-4">by <b>{{product.product_by}}</b> 30/6/2020-</p>
+         
+        </div>
+       </div>
+       <hr>
+       <div class="col-lg-12 mt-5">
+        <h3 class="text-bold" style="font-weight: 700;">Description</h3>
+        <p>{{product.product_description}}</p>
+       </div>
+     </section>
+   <!-- <section class="container-fluid">
+    <div class="row">
+     <div class="col-lg-4">
+      <div id="item">
+       <div id="productName">
+        <h1>Product</h1>
+       </div>
+       <div class="pdt_img">
+        <img class="img-thumbnail img-fluid"  src="{% static 'images/farm3.jpg' %}" alt="">
+       </div>
+      </div>
+      </div>
+      <div class="col-lg-8">
+        <div id="productDescription">
+         <h2>Details</h2>
+         <table id="descriptionTable">
+          <tr>
+           <td>Name</td>
+           <td>Data 1</td>
+          </tr>
+          <tr>
+           <td>Price</td>
+           <td>Data 2</td>
+          </tr>
+          <tr>
+           <td>Category</td>
+           <td>Data 3</td>
+          </tr>
+         </table>
+        
+         <h2>Description</h2>
+         <p>Description Url</p>
+         <div id="addToCart">
+          <a href="#">Add to Cart</a>
+         </div>
+        </div>
+      </div>
+      
+       
+      
+    </div>
+   </section> -->
+  </div>
+  <div id="menu1" class="container tab-pane fade"><br>
+   <h3>Menu 1</h3>
+   <div class="row">
+{% for similar in similars %}
+
+<div  style="border-top: 4px solid #7298d4;" class="view_item img-thumbnail my-2 col-lg-3 mx-4 text-center">
+  <div class="vi_left">
+
+    <img src="{{similar.product_img1.url}}" alt="potato">
+  </div>
+  <div class="vi_right">
+    <p class="title text-black" style="display: inline;">{{similar.product_name}}</p>
+    <p><b>By: </b>{{similar.product_by}}</p>
+    <p class="content">{{similar.product_description|slice:"0:50"}}...</p>
+    <a class="btn-btn-success" href="/market/view/{{similar.id}}/">View</a>
+    <p style="display: inline;">${{similar.product_price}}</p>
+    {% if user.is_authenticated  %}
+    <!-- <a href="/market/onview_page/{{similar.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green"
+        class="fas fa-plus"></i>
+    </a> -->
+    {%endif%}
+  </div>
+</div>
+{% endfor %}
+   </div>
+  
+  </div>
+  <div id="menu2" class="container tab-pane fade"><br>
+   <h3>Menu 2</h3>
+  <div class="row">
+    {% for similar2 in similars2 %}
+  
+    <div  style="border-top: 4px solid #7298d4;" class="view_item img-thumbnail my-2 col-lg-3 mx-4 text-center">
+      <div class="vi_left">
+  
+        <img src="{{similar2.product_img1.url}}" alt="potato">
+      </div>
+      <div class="vi_right">
+        <p class="title text-black" style="display: inline;">{{similar.product_name}}</p>
+        <p><b>By: </b>{{similar2.product_by}}</p>
+        <p class="content">{{similar2.product_description|slice:"0:50"}}...</p>
+        <a class="btn-btn-success" href="/market/view/{{similar2.id}}/">View</a>
+        <p style="display: inline;">${{similar2.product_price}}</p>
+        {% if user.is_authenticated  %}
+        <!-- <a href="/market/onview_page/{{product.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green"
+            class="fas fa-plus"></i>
+        </a> -->
+        {%endif%}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  </div>
+  <div id="menu3" class="container tab-pane fade"><br>
+   <h3>Menu 3</h3>
+   <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem
+    aperiam.</p>
+  </div>
+ </div>
+</div>
+
+
+{% endblock %}
+
+

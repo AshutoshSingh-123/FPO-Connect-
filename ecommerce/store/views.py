@@ -9,10 +9,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView 
 
-from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin 
+# from braces.views import LoginRequiredMixin, StaffuserRequiredMixin
+# from braces import views
 from users.forms import SignUpForm
 from django.conf import settings 
 from django.core.mail import send_mail 
+from .decorator import allowed_users 
+from django.core.paginator import Paginator
 # Create your views here.
 # cart fuctions
 def repeat(request):
@@ -36,9 +40,12 @@ def store(request):
    context={'products':products, 'total_items_in_cart':repeat(request), 'carts':carts}
    return render(request, 'store/store.html', context)
 
- 
  products=Product.objects.all()
- context={'products':products, 'total_items_in_cart':repeat(request), 'carts':carts}
+ paginator = Paginator(products, 6)
+ page_number = request.GET.get('page')
+ page_obj = paginator.get_page(page_number)
+
+ context={'products':page_obj, 'total_items_in_cart':repeat(request), 'carts':carts}
  return render(request, 'store/store.html', context)
 #------------------------------------end------------------------------------------------------------------
 #------------------------------------cart page------------------------------------------------------------------
@@ -70,21 +77,34 @@ def addtocart(request, slag):
   repeat(request)
   
   item=Product.objects.get(pk=slag)
-  # --------------to check if item already presentd in cart-------------------------------
   name=item.product_name
   carts=Cart.objects.filter(cartuser=request.user)
-  # for cart in carts:
-  #  if cart.name==name:
-  #   products=Product.objects.all()
-  #   context={'products':products, 'total_items_in_cart':repeat(request), }
-  #   return render(request, 'store/store.html', context)
     
   # --------------else adding to cart------------------------------
   add=Cart(name=item.product_name, price=item.product_price, img=item.product_img1, cartuser=request.user,)
   add.save()
   products=Product.objects.all()
-  context={'products':products, 'total_items_in_cart':repeat(request), }
+  paginator = Paginator(products, 6)
+  page_number = request.GET.get('page')
+  page_obj = paginator.get_page(page_number)
+  context={'products':page_obj, 'total_items_in_cart':repeat(request), }
   return render(request, 'store/store.html', context)
+
+def addtocart_onview_page(request, slag): 
+  repeat(request)
+  
+  item=Product.objects.get(pk=slag)
+  name=item.product_name
+  carts=Cart.objects.filter(cartuser=request.user)
+    
+  # --------------else adding to cart------------------------------
+  add=Cart(name=item.product_name, price=item.product_price, img=item.product_img1, cartuser=request.user,)
+  add.save()
+  products=Product.objects.get(pk=slag)
+  similars=Product.objects.filter(product_category=products.product_category)
+  similars2=Product.objects.filter(product_by=products.product_by)
+  context={'product':products, 'total_items_in_cart':repeat(request), 'similars':similars, 'similars2':similars}
+  return render(request, 'store/viewpage.html', context)
  
 def delete_item(request, id):
        
@@ -142,11 +162,26 @@ def fpo_register(request):
     return render(request, "store/fpo_registration.html", context) 
 # ---------------------------------end--------------------------------------------------
 # ---------------------------------product createview--------------------------------------------------
-class createview(LoginRequiredMixin, CreateView):
- model=Product
- fields = ['product_name', 'product_price', 'product_category', 'product_description', 'product_img1','product_img2', 'product_img3', 'product_img4', 'product_img5']
 
- def form_valid(self, form):
-  form.instance.product_by = self.request.user
-  form.instance.rating = 0
-  return super().form_valid(form)
+class createview(LoginRequiredMixin, CreateView):
+  
+  model=Product
+  fields = ['product_name', 'product_price', 'product_category', 'product_description', 'product_img1','product_img2', 'product_img3', 'product_img4', 'product_img5']
+
+  def form_valid(self, form):
+   if self.request.user.is_staff: 
+    form.instance.product_by = self.request.user
+    form.instance.rating = 0
+    return super().form_valid(form)
+   else:
+     return redirect(request, 'store')
+
+
+@login_required(login_url='login')
+def viewpage(request, slug):
+  products=Product.objects.get(id=slug)
+  similars=Product.objects.filter(product_category=products.product_category)
+  similars2=Product.objects.filter(product_by=products.product_by)
+  context={'product':products, 'total_items_in_cart':repeat(request), 'similars':similars, 'similars2':similars2}
+  return render(request, 'store/viewpage.html', context)
+ 

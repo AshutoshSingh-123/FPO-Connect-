@@ -1,0 +1,85 @@
+
+
+
+.mb-0 > a {
+    display: block;
+    position: relative;
+  }
+  .mb-0 > a:after {
+    content: "\f078"; 
+    font-family: 'FontAwesome';
+    position: absolute;
+    right: 0;
+  }
+  .mb-0 > a[aria-expanded="true"]:after {
+    content: "\f077"; 
+  }
+#productImage {
+	height: 250px;
+	width: 200px;
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+	float: left;
+  
+}
+
+#productDescription {
+	margin-left: 20px;
+	margin-right: 20px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: inline-block;
+	font-size: 19px;
+  
+}
+
+#descriptionTable td {
+	width: 150px;
+}
+
+#addToCart {
+	font-size: 20px;
+}
+
+.carousel-indicators .active{
+    background-color: black;
+}
+.carousel-control-prev .carousel-control-prev-icon {
+	    background-color: wheat;
+
+}
+.carousel-control-next .carousel-control-next-icon{
+	    background-color: wheat;
+
+}
+.checked {
+  color: orange;
+}
+.loader {
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-bottom: 16px solid #3498db;
+  border-top: 16px solid red;
+  border-right: 16px solid green;
+  border-left: 16px solid yellow;
+  width: 40px;
+  height: 40px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+		animation: spin 2s linear infinite;
+		/* display: inline; */
+  
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

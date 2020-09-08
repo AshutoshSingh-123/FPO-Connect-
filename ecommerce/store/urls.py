@@ -20,8 +20,10 @@ urlpatterns = [
 path('', views.store, name='store'),
 path('register/', views.fpo_register, name='fpo_register'),
 path('cart/', views.cart, name='cart'),
+path('view/<int:slug>/', views.viewpage, name='view'),
 path('<int:slag>/detail/', views.detail, name='checkout'),
 path('<int:slag>/', views.addtocart, name='addtocart'),
+path('onview_page/<int:slag>/', views.addtocart_onview_page, name='addtocart1'),
 path('<int:id>/delete/', views.delete_item, name='delete'),
 path('create/', product_view.createview.as_view(template_name='store/createproduct.html'),name='createview'),
 ]

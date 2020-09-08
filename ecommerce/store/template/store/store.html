@@ -1,78 +1,109 @@
 {% extends 'store/main.html' %} {% load static %} {% block content %}
+<!-- <div class="container">
+  <div class="row">
+     <div class="col-lg-4 text-center mt-5"> <h2 class="pt-5" style="margin-top: 120px; font-weight: 700; font-family: cursive;">WELCOME TO OUR SHOP</h2></div> -->
+    <!-- <div class="col-lg-12"><img class="img-fluid pl-4"  src="{% static 'images/farm5.webp' %}" alt=""></div>
+  </div>
+</div> --> 
+<hr style="color: green;">
  <div class="container">
   <div class="row">
-    
-    <div class="col-lg-8 ">
-    <div class="wrapper">
-      <div class="links box-element">
+    <div class="col-lg-3">
+      <img src="{% static 'images/farm3.jpg' %}" class="img-fluid " alt="">
+      <form action="" method="POST" class="">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search..." />
+        <hr>
+      </form>
+    </div>
+    <div class="col-lg-9 ">
+    <!-- <div class="wrapper"> -->
+      <div class=" links box-element">
         <ul>
           <li data-view="list-view" class="li-list active">
-            <i class="fas fa-th-list"></i>
-            List View</li>
-          <li data-view="grid-view" class="li-grid">
             <i class="fas fa-th-large"></i>
             Grid View</li>
+          <li data-view="grid-view" class="li-grid">
+            <i class="fas fa-th-list"></i>
+            List View</li>
         </ul>
       </div>
       <div class="view_main">
         <div class="view_wrap list-view" style="display: block;">
-          
+          <div class="row">
           {% for product in products %}
-          
-          <div class="view_item box-element">
+          <div style="border-top: 4px solid #7298d4;" class=" col-lg-4 col-md-6 col-6 col-sm-6 text-center img-thumbnail my-2">
             <div class="vi_left">
-                
-              <img src="{{product.product_img1.url}}" alt="potato">
+          
+              <img style="width: 75px;" src="{{product.product_img1.url}}" alt="potato">
             </div>
             <div class="vi_right">
               <p class="title text-black" style="display: inline;">{{product.product_name}}</p>
               <p><b>By: </b>{{product.product_by}}</p>
               <p class="content">{{product.product_description|slice:"0:50"}}...</p>
-              <div class="btn">View</div>
+              <a class="btn btn-outline-primary ml-3" href="/market/view/{{product.id}}/">View</a>
               <p style="display: inline;">${{product.product_price}}</p>
               {% if user.is_authenticated  %}
-              <a href="/market/{{product.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i> </a>
+              <a href="/market/{{product.id}}/" class=" ml-2 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i>
+              </a>
               {%endif%}
             </div>
           </div>
           {% endfor %}
+
+          </div>
+          
+         
+          {% if products.has_other_pages %}
+          <nav aria-label="Page navigation conatiner"></nav>
+          <ul class="pagination justify-content-center">
+            {% if products.has_previous %}
+            <li><a href="?page={{ products.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+            {% endif %}
+            {% if products.has_next %}
+            <li><a href="?page={{ products.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+            {% endif %}
+          </ul>
+          </nav>
+          </div>
+          <!-- {% endif %} -->
         </div>
         <div class="view_wrap grid-view" style="display: none;">
           
-          
+          <div class="row">
           {% for product in products %}
           
-          <div class="view_item box-element">
-            <div class="vi_left">
+          <div style="border-left: 4px solid #7298d4;" class="col-lg-12 my-2    img-thumbnail">
+            <div class="row">
+              <div class="col-lg-3 col-md-3 col-3 mt-4" >
+                <img class="img-fluid"  src="{{product.product_img1.url}}" alt="strawberry">
+              </div>
               
-              <img src="{{product.product_img1.url}}" alt="strawberry">
-            </div>
-            <div class="vi_right">
-              <p class="title text-success">{{product.product_name}}</p>
+            
+            <div class="col-lg-9 col-9 col-md-9 mt-3">
+              <h4 class="title " style="color: #7298d4; font-weight: 700;">{{product.product_name}}</h4>
               <p>${{product.product_price}}</p>
               <p class="content">{{product.product_description|slice:"0:50"}}....</p>
-              <div class="btn px-5" style="display: inline;">View</div>
-              <a href="/market/{{product.id}}/" class=" ml-3"  text-dark"> <i style="color:green" class="fas fa-plus"></i> </a>
+              <a class="btn btn-outline-primary" href="/market/view/{{product.id}}/">View</a>
+              {% if user.is_authenticated  %}
+              <a href="/market/{{product.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i>
+              </a>
+              {%endif%}
+            </div>
             </div>
           </div>
     {% endfor %}
         </div>
+        </div>
       </div>
     </div>
-      
       
 
       
     </div>
-    <div class="col-lg-1"></div>
-    <div class="col-lg-3 mt-5" >
-      <img src="{% static 'images/farm3.jpg' %}" class="img-fluid mt-5" alt="">
-      <form action="" method="POST" class="mt-2 ">
-        {% csrf_token %}
-        <input type="text" name="search" placeholder="Search..." />
-      </form>
-    </div>
+    <!-- <div class="col-lg-1"></div> -->
+    
   </div>
-</div> 
+<!-- </div>  -->
 
 {% endblock %}
