@@ -45,17 +45,18 @@
 }
 
 .carousel-indicators .active{
-    background-color: black;
+    background-color: #696969;
 }
 .carousel-control-prev .carousel-control-prev-icon {
-	    background-color: wheat;
+	    background-color: #696969;
 
 }
 .carousel-control-next .carousel-control-next-icon{
-	    background-color: wheat;
+	    background-color: #696969;
 
 }
 .checked {
+
   color: orange;
 }
 .loader {

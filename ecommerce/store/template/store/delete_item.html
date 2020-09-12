@@ -17,7 +17,7 @@
 
 
 <a href="#" class="btn btn-outline-success">View</a>
-<h4 style="display: inline-block; float: right;">${{obj.price}}</h4>
+<h4 style="display: inline-block; float: right;"><i class="fas fa-rupee-sign prefix text-danger"></i> {{obj.price}}</h4>
 
   </div>
  </div>
@@ -27,7 +27,7 @@
         <!-- Security token by Django -->
         {% csrf_token %} 
         <h6 class='mt-5'>Are you want to delete this item ? </h6>
-        <input class='btn btn-danger' type="submit" value="Delete" /> 
+        <input style="width: 100px;" class='btn btn-danger' type="submit" value="Delete" /> 
         <a href="{% url 'cart' %}" class='btn btn-outline-primary'>Cancel </a> 
     </form> 
 </div>

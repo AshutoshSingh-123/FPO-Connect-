@@ -25,9 +25,15 @@ class Product(models.Model):
         ('Grain', 'Grain'),
         ('Fruit', 'Fruits'),
     )
+ UNIT = (
+        ('Kg', 'Kg'),
+        ('Liter', 'Liter'),
+        ('Meter', 'Meter'),
+    )
  product_by = models.ForeignKey(User, on_delete=models.CASCADE, default=True)
  product_name = models.CharField(max_length=50) 
- product_category = models.CharField(max_length=6, choices=CATEGORY_CHOICES)
+ product_category = models.CharField(max_length=6, choices=CATEGORY_CHOICES, null=True, blank=True)
+ product_unit = models.CharField(max_length=6, choices=UNIT)
  product_price =  models.IntegerField() 
  product_description = models.TextField()
  product_img1 = models.ImageField(upload_to='images/product', default='images/product/cart.png') 

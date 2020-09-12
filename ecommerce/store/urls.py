@@ -16,6 +16,7 @@ Including another URLconf
 from . import views
 from django.urls import path
 from . import views as product_view
+from .views import product_fpo_del, product_fpo_update
 urlpatterns = [
 path('', views.store, name='store'),
 path('register/', views.fpo_register, name='fpo_register'),
@@ -25,5 +26,7 @@ path('<int:slag>/detail/', views.detail, name='checkout'),
 path('<int:slag>/', views.addtocart, name='addtocart'),
 path('onview_page/<int:slag>/', views.addtocart_onview_page, name='addtocart1'),
 path('<int:id>/delete/', views.delete_item, name='delete'),
+path('delete_fpo_product/<int:pk>/', product_fpo_del.as_view(template_name='store/delete_fpo_product.html'), name='delete'),
+path('update_fpo_product/<int:pk>/', product_fpo_update.as_view(template_name='store/update_fpo_product.html'), name='delete'),
 path('create/', product_view.createview.as_view(template_name='store/createproduct.html'),name='createview'),
 ]

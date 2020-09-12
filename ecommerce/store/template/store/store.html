@@ -10,11 +10,28 @@
   <div class="row">
     <div class="col-lg-3">
       <img src="{% static 'images/farm3.jpg' %}" class="img-fluid " alt="">
-      <form action="" method="POST" class="">
+      <form id="form1" action="" method="POST" class="">
         {% csrf_token %}
-        <input type="text" name="search" placeholder="Search..." />
+        <input type="text" name="search" placeholder="Search by name..." />
         <hr>
+        <h4 style="font-weight: 600;">Sort By Category:</h4>
+        <div class="form-group">
+          
+          <select class="form-control" name="cat" id="" onchange="submit()">
+            <option value="">Categories</option>
+            <option value="Fruit">Fruit</option>
+            <option value="Grain">Grain</option>
+            <option value=" Dairy">Dairy</option>
+          </select>
+        </div>
+        
+        
+        <!-- <input name="cat1" value="cat1" type="radio" onchange="submit() "> -->
+        
+        
+        <!-- <button type="submit">Search</button> -->
       </form>
+      
     </div>
     <div class="col-lg-9 ">
     <!-- <div class="wrapper"> -->
@@ -40,11 +57,12 @@
             <div class="vi_right">
               <p class="title text-black" style="display: inline;">{{product.product_name}}</p>
               <p><b>By: </b>{{product.product_by}}</p>
+              <p style="display: inline; "><i style="color: red;" class="fas fa-rupee-sign"></i> {{product.product_price}} <b>/</b> {{product.product_unit}} </p>
               <p class="content">{{product.product_description|slice:"0:50"}}...</p>
               <a class="btn btn-outline-primary ml-3" href="/market/view/{{product.id}}/">View</a>
-              <p style="display: inline;">${{product.product_price}}</p>
+              
               {% if user.is_authenticated  %}
-              <a href="/market/{{product.id}}/" class=" ml-2 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i>
+              <a href="/market/{{product.id}}/" class=" ml-2 mr-auto text-dark"> <i style="color:green" class="fa fa-plus"></i>
               </a>
               {%endif%}
             </div>
@@ -75,15 +93,16 @@
           
           <div style="border-left: 4px solid #7298d4;" class="col-lg-12 my-2    img-thumbnail">
             <div class="row">
-              <div class="col-lg-3 col-md-3 col-3 mt-4" >
+              <div class="col-lg-3 col-md-3 col-3 mt-4 my" >
+                
                 <img class="img-fluid"  src="{{product.product_img1.url}}" alt="strawberry">
               </div>
               
             
             <div class="col-lg-9 col-9 col-md-9 mt-3">
-              <h4 class="title " style="color: #7298d4; font-weight: 700;">{{product.product_name}}</h4>
-              <p>${{product.product_price}}</p>
-              <p class="content">{{product.product_description|slice:"0:50"}}....</p>
+              <h4 class="title  " style="color: #7298d4; font-weight: 700;">{{product.product_name}}</h4>
+              <p><i class="fas fa-rupee-sign"></i> {{product.product_price}} <b>/</b>{{product.product_unit}} </p>
+              <p class="content ">{{product.product_description|slice:"0:50"}}....</p>
               <a class="btn btn-outline-primary" href="/market/view/{{product.id}}/">View</a>
               {% if user.is_authenticated  %}
               <a href="/market/{{product.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i>

@@ -34,18 +34,23 @@ def repeat(request):
 # ----------------------------------------------- marketplace site-------------------------------------
 def store(request):
  carts=Cart.objects.all()
+ 
  if request.method=='POST':
    val=request.POST.get('search')
-   products=Product.objects.filter(product_name__icontains=val)
-   context={'products':products, 'total_items_in_cart':repeat(request), 'carts':carts}
-   return render(request, 'store/store.html', context)
-
- products=Product.objects.all()
+   cat=request.POST.get('cat')
+   products=[]
+   if cat != '':
+     products=Product.objects.filter(product_category=cat)
+    
+   if val != '':
+     products=Product.objects.filter(product_name__icontains=val)  
+ else:
+  products=Product.objects.all()
  paginator = Paginator(products, 6)
  page_number = request.GET.get('page')
  page_obj = paginator.get_page(page_number)
 
- context={'products':page_obj, 'total_items_in_cart':repeat(request), 'carts':carts}
+ context={'products':page_obj, 'total_items_in_cart':repeat(request), 'carts':carts, }
  return render(request, 'store/store.html', context)
 #------------------------------------end------------------------------------------------------------------
 #------------------------------------cart page------------------------------------------------------------------
@@ -53,6 +58,10 @@ def cart(request):
  carts=Cart.objects.filter(cartuser=request.user)
  total_price=0
  total_items=0
+ if request.method == 'POST':
+  
+     Cart.objects.all().delete()
+   
  for x in carts:
   total_price=total_price+x.price
   total_items=total_items+1
@@ -121,6 +130,27 @@ def delete_item(request, id):
   
     return render(request, "store/delete_item.html", context) 
 
+class product_fpo_del(DeleteView):
+  model=Product
+  success_url='/market/'
+class product_fpo_update(UpdateView):
+  model=Product
+  fields = [ 
+        "product_name", 
+        "product_description",
+        "product_unit",
+        "product_price",
+        "product_category",
+        "product_img1",
+        "product_img2",
+        "product_img3",
+        "product_img4",
+        "product_img5",
+    ] 
+  
+  
+  
+  success_url='/market/'
 # --------------------------------------------end--------------------------------------------
 # -------------------fpo registration form-------------------------------------------------
  
@@ -166,7 +196,7 @@ def fpo_register(request):
 class createview(LoginRequiredMixin, CreateView):
   
   model=Product
-  fields = ['product_name', 'product_price', 'product_category', 'product_description', 'product_img1','product_img2', 'product_img3', 'product_img4', 'product_img5']
+  fields = ['product_name','product_unit', 'product_price', 'product_category', 'product_description', 'product_img1','product_img2', 'product_img3', 'product_img4', 'product_img5']
 
   def form_valid(self, form):
    if self.request.user.is_staff: 
@@ -179,9 +209,14 @@ class createview(LoginRequiredMixin, CreateView):
 
 @login_required(login_url='login')
 def viewpage(request, slug):
+  
   products=Product.objects.get(id=slug)
+  user=User.objects.get(username=products.product_by)
+  # print(products.product_by)
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  
   similars=Product.objects.filter(product_category=products.product_category)
   similars2=Product.objects.filter(product_by=products.product_by)
-  context={'product':products, 'total_items_in_cart':repeat(request), 'similars':similars, 'similars2':similars2}
+  context={'product':products, 'total_items_in_cart':repeat(request), 'similars':similars, 'similars2':similars2, 'fpo':fpo}
   return render(request, 'store/viewpage.html', context)
  

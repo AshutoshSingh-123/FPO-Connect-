@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <!-- custom css -->
-    <link rel="stylesheet" href="{% static 'css/stor.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/store.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'css/product_view.css' %}" type="text/css" />
     <link rel="stylesheet" href="{% static 'css/createproduct.css' %}" type="text/css" />
-    <link rel="stylesheet" href="{% static 'css/viewpage1.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'css/viewpage2.css' %}" type="text/css" />
     <!-- ---------------------------------------------------------------------------------------------- -->
     
     
@@ -57,7 +57,7 @@
         <div class="form-inline my-2 my-lg-0">
          
 {% if user.is_authenticated and user.is_staff %}
-         <sub><a href="{% url 'cart' %}"><img style=' width:40px; margin-left:60px'  src="{% static 'images/cart.png' %}" alt="">
+         <sub><a href="{% url 'cart' %}"><i class="fab fa-gratipay fa-3x"></i>
           </sub>
          
           

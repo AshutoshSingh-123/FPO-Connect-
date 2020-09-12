@@ -25,3 +25,25 @@ li_links.forEach(function (link) {
   }
  })
 })
+
+function submit(){
+ 
+  var a=document.getElementById("form1");
+  a.submit();
+
+  
+ }
+function submit1(){
+ 
+  var b=document.getElementById("form2");
+  b.submit();
+
+  
+ }
+function submit2(){
+ 
+  var a=document.getElementById("form3");
+  a.submit();
+
+  
+ }
