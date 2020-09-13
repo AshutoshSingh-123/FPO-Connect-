@@ -27,6 +27,7 @@
 </head>
 
 <body>
+ 
 
   <!--Main Navigation-->
  <div class="container ">
@@ -42,22 +43,27 @@
               <div class="md-form form-sm ">
                 <p style="color:azure;">-</p> <i class="fa fa-user prefix "></i>
                 {{form_signup.username}}
-                <label for="form3">Your name</label>
+                <label for="form3">Your name </label>
+                <div class="text-danger mt-2" style="font-size: x-small;">{{form_signup.username.errors}}</div>
+                
               </div>
               <div class="md-form form-sm">
                 <p style="color:azure;">-</p> <i class="fa fa-envelope prefix"></i>
                 {{form_signup.email}}
                 <label for="form2">Your email</label>
+                <div class="text-danger" style="font-size: x-small;">{{form_signup.email.errors}}</div>
               </div>
               <div class="md-form form-sm">
                 <p style="color:azure;">-</p> <i class="fa fa-key prefix"></i></i>
                 {{form_signup.password1}}
                 <label for="form34">Password</label>
+                <div class="text-danger" style="font-size: x-small;">{{form_signup.password1.errors}}</div>
               </div>
               <div class="md-form form-sm">
                 <p style="color:azure;">-</p> <i class="fa fa-key prefix"></i></i>
                 {{form_signup.password2}}
                 <label for="form8">Confirm Password</label>
+                <div class="text-danger" style="font-size: x-small;">{{form_signup.password2.errors}}</div>
               </div>
               <div class="text-center mt-2">
                 <button class="btn btn-primary" type="submit">Signup <i class="fa fa-paper-plane-o ml-1"></i></button>

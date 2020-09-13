@@ -86,6 +86,7 @@
 </head>
 
 <body>
+  
 
   <!--Main Navigation-->
   <div class="container ">
@@ -102,6 +103,7 @@
             <p style="color:azure;">-</p> <i class="fa fa-user prefix "></i>
             {{form.username}}
             <label for="form3">Your name</label>
+            
           </div>
           
           
@@ -109,6 +111,21 @@
             <p style="color:azure;">-</p> <i class="fa fa-key prefix"></i></i>
             {{form.password}}
             <label for="form8">Password</label>
+            <!-- errors -->
+            <div class="text-danger mt-2 ml-5" style="font-size: x-small;">{% if form.errors %}
+            {% for field in form %}
+            {% for error in field.errors %}
+           
+              .{{ error|escape }}
+           
+            {% endfor %}
+            {% endfor %}
+            {% for error in form.non_field_errors %}
+            
+            <p class="text-danger">{{ error|escape }}</p>
+            
+            {% endfor %}
+            {% endif %}</div>
           </div>
           <div class="text-center mt-4">
             <button class="btn btn-primary" type="submit">Login <i class="fa fa-paper-plane-o ml-1"></i></button>
