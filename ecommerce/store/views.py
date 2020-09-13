@@ -218,5 +218,26 @@ def viewpage(request, slug):
   similars=Product.objects.filter(product_category=products.product_category)
   similars2=Product.objects.filter(product_by=products.product_by)
   context={'product':products, 'total_items_in_cart':repeat(request), 'similars':similars, 'similars2':similars2, 'fpo':fpo}
+  if request.method == 'POST':
+    email=request.POST.get('email')
+    name=request.POST.get('name')
+    sub=request.POST.get('subject')
+    message=request.POST.get('message')
+    number=request.POST.get('number')
+    subject = sub
+      
+    message = f'''Hi 
+                     {user.username}, 
+                     username: {name},
+                     email: {email},
+                     phone number: {number},
+                     wants to contact with you.
+                     Message:
+                     {message}'''
+    email_from = settings.EMAIL_HOST_USER 
+    recipient_list = [user.email,  ] 
+     
+    send_mail( subject, message, email_from, recipient_list ) 
+
   return render(request, 'store/viewpage.html', context)
  

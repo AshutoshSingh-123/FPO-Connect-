@@ -6,6 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     {% comment %} fontawesoem {% endcomment %}
     <script src="https://kit.fontawesome.com/e16be2307c.js" crossorigin="anonymous"></script>
+    <!-- MDB icon -->
+    <link rel="icon" href="img/mdb-favicon.ico" type="image/x-icon">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="{% static 'css_bs/bootstrap.min.css' %}">
+    <!-- Material Design Bootstrap -->
+    <link rel="stylesheet" href="{% static 'css_bs/mdb.min.css' %}">
+    <!-- Your custom styles (optional) -->
+    <link rel="stylesheet" href="{% static 'css_bs/style1.css' %}">
     <!-- bootstrap css -->
     <link
       rel="stylesheet"
@@ -43,12 +55,12 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link text-dark" href="{% url 'store' %}"
+            <a class="nav-link text-dar" href="{% url 'store' %}"
               >Store <i style="color:green" class="fas fa-store"></i> <span class="sr-only">(current)</span></a
             >
           </li>
           <li class="nav-item active">
-            <a class="nav-link text-dark" href="{% url 'home' %}"
+            <a class="nav-link text-dar" href="{% url 'home' %}"
               >Home <i style="color:green" class="fa fa-home"></i> <span class="sr-only">(current)</span></a
             >
           </li>
@@ -94,6 +106,10 @@
       {% block content %} {% endblock %}
     </div>
     <!-- JS, Popper.js, and jQuery -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
       integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
