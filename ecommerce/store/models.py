@@ -4,11 +4,16 @@ from django.utils import timezone
 from django.urls import reverse
 # Create your models here.
 class Fpo_Registeration(models.Model):
+ 
+ fpo_category = models.CharField(max_length=100, null=True, blank=True)
  fpo_username=models.CharField(max_length=50)
  fpo_name=models.CharField(max_length=50)
  fpo_area=models.CharField(max_length=500)
  fpo_email=models.CharField(max_length=500)
- 
+ fpo_mobile1=models.IntegerField(null=True)
+ fpo_mobile2=models.IntegerField(null=True)
+ fpo_description=models.TextField()
+#  fpo_descripyion=models.TextField()
  area_pincode=models.IntegerField(null=True)
  total_members=models.IntegerField(null=True)
  fpo_img = models.ImageField(upload_to='images/FPO')
@@ -17,6 +22,7 @@ class Fpo_Registeration(models.Model):
  
  def __str__(self):
   return self.fpo_name
+ 
  
 
 class Product(models.Model):

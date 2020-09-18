@@ -1,0 +1,174 @@
+{% extends 'store/main.html' %} {% load static %} {% block content %}
+<div class="container">
+ <div class="row">
+  <div class="col-lg-4 ">
+    <div class="text-center my-3">
+      <img src="{% static 'images/FPOlogo.png' %}" class="img-fluid w-50 mb-5" alt="">
+      <form id="form1" action="" method="POST" class="">
+        {% csrf_token %}
+        <input type="text" name="search" placeholder="Search by fpo's name or location..." />
+        
+        <!-- <input type="text" name="search1" placeholder="Search by location..." /> -->
+        <hr>
+        
+     
+    </div>
+    
+    <!-- <input type="checkbox" name="acs" value="Dairy" onclick='printChecked()'>Dairy <br>
+        <input type="checkbox" name="acs" value="Fruit" onclick='printChecked()'>Fruits<br>
+        <input type="checkbox" name="acs" value="Grain" onclick='printChecked()'>Grain<br> -->
+    <div class="row my-3">
+      <div class="col-lg-12">
+        <div id="accordion">
+          <div class="car z-depth-1">
+            <div class="card-header">
+              <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                <i class="fas fa-filter"></i> Filter <i style="padding-left: 220px;" class="fas fa-angle-down"></i>
+              </a>
+            </div>
+            <div id="collapseOne" class="collapse " data-parent="#accordion">
+              <div class="card-body">
+                <div id="accordion1">
+                  <div class="car ">
+                    <div class="card-header">
+                      <a class="card-link" data-toggle="collapse" href="#collapseOne1">
+                        Category <i onclick="upsideDown()" style="padding-left: 173px;" class="fas fa-angle-down"></i>
+                      </a>
+                    </div>
+                    <div id="collapseOne1" class="collapse " data-parent="#accordion1">
+                      <div class="card-body">
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-1" onclick='printChecked()'>
+                        Agro-Storage Centre<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-2" onclick='printChecked()'>
+                        Agro-Service Centre<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-3" onclick='printChecked()'>
+                        Agro-Processing Centre<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-4" onclick='printChecked()'>
+                        Agri-Information Centre<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-5" onclick='printChecked()'>
+                        Agri Transportation & Marketing Facilities<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-6" onclick='printChecked()'>
+                        Milk Producer Company<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-7" onclick='printChecked()'>
+                        Farm Producer Company<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-8" onclick='printChecked()'>
+                        Non- Farm Producer Company<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-9" onclick='printChecked()'>
+                        Fishery Producer Company<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-10" onclick='printChecked()'>
+                        Poultry<br>
+                        <input class="my-2" type="checkbox" style="width: 30px;" name="acs" value="c-11" onclick='printChecked()'>
+                        Goat<br>
+                        
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- ------------------ -->
+               
+              </div>
+              <!-- hgjkjg---------------- -->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   <div class="col-lg-8 ">
+    <!-- <div class="wrapper"> -->
+    <div class=" links ">
+     <ul>
+      <li data-view="list-view" class="li-list active btn">
+       <i class="fas fa-th-large"></i>
+       Grid</li>
+      <li data-view="grid-view" class="li-grid btn">
+       <i class="fas fa-th-list"></i>
+       List</li>
+      
+    
+     </ul>
+     <hr>
+      <li class="text-dark font-weight-light ml-2 ">
+        {{total_result}} Results</li>
+        <hr>
+    </div>
+    <div class="view_main">
+     <div class="view_wrap list-view" style="display: block;">
+      <div class="row ">
+       {% for fpo in fpos %}
+       <div style="border-top: 4px solid #b71ebd;"
+        class="{{fpo.fpo_category}} resultblock col-lg-4 col-md-6 col-6 col-sm-6 text-center img-thumbnail my-2">
+        <div class="vi_left">
+   
+         <img class="img-fluid img-thumbnail" style="width: 80px; border-radius: 50%; height: 80px;" src="{{fpo.fpo_img.url}}" alt="potato">
+        </div>
+        <div class="vi_right">
+          {{fpo.fpo_name}} <br>
+         
+         <i class="fas fa-users text-secondary"></i> {{fpo.total_members}} <br>
+         <i class="fas fa-compass text-secondary"></i> {{fpo.fpo_area}} <br>
+         {{fpo.fpo_description|slice:"0:50"}}...
+        
+         <a class="btn btn-secondary ml-3" href="/market/fpo_view/{{fpo.id}}/">More...</a>
+   
+         
+        </div>
+       </div>
+       {% endfor %}
+   
+      </div>
+   
+   
+      
+     </div>
+     
+    </div>
+    <div class="view_wrap grid-view" style="display: none;">
+   
+     <div class="row">
+      {% for fpo in fpos %}
+   
+      <div style="border-left: 4px solid #b71ebd;"
+       class="{{fpo.fpo_category}} resultblock col-lg-12 my-2    img-thumbnail">
+       <div class="row">
+        <div class="col-lg-2 col-md-3 col-3 col-sm-3 mt-2">
+   
+         <img class="img-fluid img-thumbnail" style="width: 80px; height: 80px; border-radius: 50%;" src="{{fpo.fpo_img.url}}" alt="strawberry">
+        </div>
+   
+   
+        <div class="col-lg-6 col-4 col-md-5 col-sm-6  text-center">
+         <h4 class="title mt-3 text-secondary font-weight-normal" >{{fpo.fpo_name}}</h4>
+   
+        {{fpo.fpo_description|slice:"0:60"}}... <br>
+      
+   
+        </div>
+        <div class="col-lg-4 col-4 col-md-4 col-sm-3 text-center" style="border-left: 1px solid grey;">
+        <i class="fas fa-users pt-4 text-secondary"></i> {{fpo.total_members}} <br>
+        <i class="fas fa-compass text-secondary"></i> {{fpo.fpo_area}} <br>
+        
+         <a class="btn btn-secondary mb-3" " href=" /market/fpo_view/{{fpo.id}}/">More...</a>
+   
+        </div>
+       </div>
+      </div>
+      {% endfor %}
+     </div>
+    </div>
+   </div>
+ </div>
+
+
+
+<script>
+  function search(){
+    var f=document.getElementById('form1');
+    f.submit()
+  }
+</script>
+
+
+
+{%endblock%}

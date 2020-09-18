@@ -1,0 +1,127 @@
+{% extends 'store/main.html' %} {% load static %} {% block content %}
+<div class="container">
+ <div class="row">
+  <div class="col-lg-6 text-center">
+   <img src="{% static 'images/farm4.png' %}" class="mt-5" style="width: 60px; height: 60px; border: 50%;" alt="">
+   <h2 class="my-2">{{fpo.fpo_name}}</h2>
+   <h5>{{fpo.fpo_area}} , India</h5>
+   <h6><i class="fas fa-users"></i>Members: {{fpo.total_members}} </h6>
+   <a href="#contact" class="btn btn-danger">Contact</a>
+  {% if request.user.username == fpo.fpo_username %}
+  <a class="btn btn-outline-primary" href="/market/update_fpo/{{fpo.id}}/">Edit</a>
+  {%endif%}
+  </div>
+ 
+  <div class="col-lg-6"><img class="img-fluid" style="width: 400px;" src="{{fpo.fpo_img.url}}" alt="">
+  </div>
+ 
+  <div class="col-lg-12 my-3">
+   <h3 class="text-primary my-4">About:</h3>
+   {{fpo.fpo_description}}
+  </div>
+  
+  <button class="accordion" style="background-color: #7298d4;">Products</button>
+  <div class="panel ">
+   <div class="col-lg-12 ">
+    <div class="row ">
+     {% for similar2 in products %}
+   
+     <div style="border-top: 4px solid #7298d4;" class="view_item img-thumbnail my-3 col-lg-3 col-6 col-sm-6 col-md-6   text-center">
+      <div class="thumbnail">
+       <div class="vi_left">
+   
+        <img src="{{similar2.product_img1.url}}" alt="potato">
+       </div>
+       <div class="vi_right">
+        <p class="title text-black" style="display: inline;">{{similar2.product_name}}</p>
+        <p><b>By: </b>{{similar2.product_by}}</p>
+        <p style="display: inline;"> <i class="fas fa-rupee-sign prefix"></i> {{similar2.product_price}}
+         <b>/</b>{{similar2.product_unit}}</p>
+        <p class="content">{{similar2.product_description|slice:"0:50"}}...</p>
+        <a class="btn btn-success" href="/market/view/{{similar2.id}}/">View</a>
+   
+   
+       </div>
+      </div>
+     </div>
+   
+     {% endfor %}
+    </div>
+   </div>
+   
+  </div>
+  
+  <div class="col-lg-12">
+ 
+   <section id="contact">
+    <h2 class="font-weight-bolder  my-5">Contact us</h2>
+    <hr>
+    <div class="row">
+     <div class="col-lg-7 col-md-12">
+      <form class="p-5 grey-text" method="POST">
+       {% csrf_token %}
+       <div class="md-form form-sm"> <i class="fa fa-user prefix"></i>
+        <input type="text" id="form3" name="name" class="form-control form-control-sm">
+        <label for="form3">Your name</label>
+       </div>
+       <div class="md-form form-sm"> <i class="fa fa-user prefix"></i>
+        <input type="number" id="form" name="number" class="form-control form-control-sm">
+        <label for="form">Phone number</label>
+       </div>
+       <div class="md-form form-sm"> <i class="fa fa-envelope prefix"></i>
+        <input type="text" id="form2" name="email" class="form-control form-control-sm">
+        <label for="form2">Your email</label>
+       </div>
+       <div class="md-form form-sm"> <i class="fa fa-tag prefix"></i>
+        <input type="text" id="form34" name="subject" class="form-control form-control-sm">
+        <label for="form34">Subject</label>
+       </div>
+       <div class="md-form form-sm"> <i class="fa fa-pencil prefix"></i>
+        <textarea type="text" id="form8" name="message" class="md-textarea form-control form-control-sm"
+         rows="4"></textarea>
+        <label for="form8">Your message</label>
+       </div>
+       <div class="text-center mt-4">
+        <button class="btn btn-primary" type="submit">Send <i class="fa fa-paper-plane-o ml-1"></i></button>
+       </div>
+      </form>
+      <!-- Form contact -->
+     </div>
+     <div class="col-lg-5  mt-5 z-dep " style=" border-top: 3px solid #7298d4;">
+      <img style="width: 200px;" class="img-fluid" src="{% static 'images/contact-us.jpg' %}" alt="">
+      <span class="mt-3 text-primary font-weight-normal">Contact Info:
+      </h4>
+      <hr>
+      <h1 class="mt-5"></h1>
+ 
+      <h5 class="text-dark text-center"><i class="fa fa-envelope my-2 "></i> {{fpo.fpo_email}}</h5>
+      <div class="text-dark text-center"><h5><i class="fas fa-phone-alt my-2 "></i> {{fpo.fpo_mobile1}}</h5>
+      <h5 ><i class="fas fa-phone-alt my-2 "></i> {{fpo.fpo_mobile2}}</h5>
+      <h5 ><i class="fas fa-compass "></i> {{fpo.fpo_area}} , India</h5>
+      <h5 >Pincode: {{fpo.area_pincode}}</h5></div>
+     </div>
+    </div>
+  </div>
+  </section>
+ </div>
+</div>
+
+
+
+<script>
+ var acc = document.getElementsByClassName("accordion");
+ var i;
+
+ for (i = 0; i < acc.length; i++) {
+  acc[i].addEventListener("click", function () {
+   this.classList.toggle("active");
+   var panel = this.nextElementSibling;
+   if (panel.style.display === "block") {
+    panel.style.display = "none";
+   } else {
+    panel.style.display = "block";
+   }
+  });
+ }
+</script>
+{%endblock%}

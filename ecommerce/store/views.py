@@ -37,20 +37,15 @@ def store(request):
  
  if request.method=='POST':
    val=request.POST.get('search')
-   cat=request.POST.get('cat')
-   products=[]
-   if cat != '':
-     products=Product.objects.filter(product_category=cat)
-    
-   if val != '':
-     products=Product.objects.filter(product_name__icontains=val)  
+   products=Product.objects.filter(product_name__icontains=val)  
  else:
   products=Product.objects.all()
  paginator = Paginator(products, 6)
  page_number = request.GET.get('page')
  page_obj = paginator.get_page(page_number)
+ total_result = products.count()
 
- context={'products':page_obj, 'total_items_in_cart':repeat(request), 'carts':carts, }
+ context={'products':page_obj, 'total_items_in_cart':repeat(request), 'carts':carts, 'total_result':total_result}
  return render(request, 'store/store.html', context)
 #------------------------------------end------------------------------------------------------------------
 #------------------------------------cart page------------------------------------------------------------------
@@ -133,6 +128,21 @@ def delete_item(request, id):
 class product_fpo_del(DeleteView):
   model=Product
   success_url='/market/'
+class fpo_update(UpdateView):
+  model=Fpo_Registeration
+  fields = [ 
+        "fpo_name", 
+        "fpo_description",
+        
+        
+        "fpo_img",
+        "fpo_area",
+        "area_pincode",
+        "fpo_email",
+        "fpo_mobile1",
+        "fpo_mobile2",
+    ] 
+  success_url='/market/allfpo/'
 class product_fpo_update(UpdateView):
   model=Product
   fields = [ 
@@ -161,13 +171,16 @@ def fpo_register(request):
     if request.method=='POST':
       email=request.POST.get('email')
       name=request.POST.get('name')
+      number1=request.POST.get('number1')
+      number2=request.POST.get('number2')
+      description=request.POST.get('description')
       area=request.POST.get('area')
       pincode=request.POST.get('pincode')
       member=request.POST.get('members')
       u=request.POST.get('username')
       img=request.FILES.get('image')
-        
-      f=Fpo_Registeration(fpo_username=u, fpo_name = name, fpo_area = area, area_pincode = int(pincode), total_members =int(member) , fpo_email = email, fpo_img = img )
+      category = request.POST.get('category')
+      f=Fpo_Registeration(fpo_username=u, fpo_name = name, fpo_area = area, area_pincode = int(pincode), total_members =int(member) , fpo_email = email, fpo_img = img, fpo_mobile1=number1, fpo_mobile2=number2, fpo_description=description, fpo_category=category )
 
       f.save() 
             # ------------------sending mail-----------------------------------------------
@@ -241,3 +254,51 @@ def viewpage(request, slug):
 
   return render(request, 'store/viewpage.html', context)
  
+#  ------------------------------------------ fpo listview-------------------------------------
+@login_required(login_url='login') 
+def fpo_listview(request):
+  if request.method=='POST':
+   val=request.POST.get('search')
+   
+   fpo1=Fpo_Registeration.objects.filter(fpo_name__icontains=val)  
+   
+   fpo2=Fpo_Registeration.objects.filter(fpo_area__icontains=val)
+   fpo = fpo1 | fpo2
+  else:
+ 
+   fpo=Fpo_Registeration.objects.all()
+  total_result = fpo.count()
+  context={'fpos':fpo, 'total_result':total_result,'total_items_in_cart':repeat(request)}
+  return render(request, 'store/allfpos.html', context)
+
+
+@login_required(login_url='login')  
+def fpo_view(request, slug):
+  fpo=Fpo_Registeration.objects.get(pk=slug)
+  by=fpo.fpo_username
+  user =User.objects.get(username=by)
+  by1=user.id
+  products = Product.objects.filter(product_by=by1)
+  print(user.email)
+  context={'fpo':fpo, 'products':products, 'total_items_in_cart':repeat(request)}
+  if request.method == 'POST':
+    email=request.POST.get('email')
+    name=request.POST.get('name')
+    sub=request.POST.get('subject')
+    message=request.POST.get('message')
+    number=request.POST.get('number')
+    subject = sub
+      
+    message = f'''Hi 
+                     {user.username}, 
+                     username: {name},
+                     email: {email},
+                     phone number: {number},
+                     wants to contact with you.
+                     Message:
+                     {message}'''
+    email_from = settings.EMAIL_HOST_USER 
+    recipient_list = [user.email,  ] 
+     
+    send_mail( subject, message, email_from, recipient_list ) 
+  return render(request, 'store/fpo_detail_view.html', context)

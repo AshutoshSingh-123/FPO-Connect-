@@ -8,48 +8,114 @@
 <hr style="color: green;">
  <div class="container">
   <div class="row">
-    <div class="col-lg-3">
+    <div class="col-lg-4">
       <img src="{% static 'images/farm3.jpg' %}" class="img-fluid " alt="">
       <form id="form1" action="" method="POST" class="">
         {% csrf_token %}
         <input type="text" name="search" placeholder="Search by name..." />
         <hr>
-        <h4 style="font-weight: 600;">Sort By Category:</h4>
-        <div class="form-group">
-          
-          <select class="form-control" name="cat" id="" onchange="submit()">
-            <option value="">Categories</option>
-            <option value="Fruit">Fruit</option>
-            <option value="Grain">Grain</option>
-            <option value=" Dairy">Dairy</option>
-          </select>
-        </div>
+        
+         
         
         
-        <!-- <input name="cat1" value="cat1" type="radio" onchange="submit() "> -->
         
         
-        <!-- <button type="submit">Search</button> -->
       </form>
-      
+      <!-- <input type="checkbox" name="acs" value="Dairy" onclick='printChecked()'>Dairy <br>
+      <input type="checkbox" name="acs" value="Fruit" onclick='printChecked()'>Fruits<br>
+      <input type="checkbox" name="acs" value="Grain" onclick='printChecked()'>Grain<br> -->
+      <div class="row my-3">
+        <div class="col-lg-12">
+          <div id="accordion">
+            <div class="car z-depth-1">
+              <div class="card-header">
+                <a class="card-link" data-toggle="collapse" href="#collapseOne">
+                <i class="fas fa-filter"></i> Filter  <i style="padding-left: 220px;" class="fas fa-angle-down"></i>
+                </a>
+              </div>
+              <div id="collapseOne" class="collapse " data-parent="#accordion">
+                <div class="card-body">
+                  <div id="accordion1">
+                    <div class="car ">
+                      <div class="card-header">
+                        <a class="card-link"  data-toggle="collapse" href="#collapseOne1">
+                          Category <i onclick="upsideDown()"   style="padding-left: 173px;" class="fas fa-angle-down"></i>
+                        </a>
+                      </div>
+                      <div id="collapseOne1" class="collapse " data-parent="#accordion1">
+                        <div class="card-body">
+                          <input type="checkbox" style="width: 30px;" name="acs" value="Dairy" onclick='printChecked()'> Dairy<br>
+                          <input type="checkbox" style="width: 30px;" name="acs" value="Fruit" onclick='printChecked()'> Fruits<br>
+                          <input type="checkbox" style="width: 30px;" name="acs" value="Grain" onclick='printChecked()'> Grain<br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- ------------------ -->
+                  <div id="accordion2" class="my-2">
+                    <div class="car ">
+                      <div class="card-header">
+                        <a class="card-link" data-toggle="collapse" href="#collapseOne2">
+                          Sort by Rating <i onclick="upsideDown()" style="padding-left: 129px;" class="fas fa-angle-down"></i>
+                        </a>
+                      </div>
+                      <div id="collapseOne2" class="collapse " data-parent="#accordion2">
+                        <div class="card-body">
+
+                          <input type="checkbox" style="width: 30px;" name="acs1" value="r-1" onclick='printChecked1()'>  <span class="fa fa-star checked"></span>
+                           1<br>
+                          <input type="checkbox" style="width: 30px;" name="acs1" value="r-2" onclick='printChecked1()'> <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                           2<br>
+                          <input type="checkbox" style="width: 30px;" name="acs1" value="r-3" onclick='printChecked1()'> <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                           3<br>
+                          <input type="checkbox" style="width: 30px;" name="acs1" value="r-4" onclick='printChecked1()'> <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                           4<br>
+                          <input type="checkbox" style="width: 30px;" name="acs1" value="r-5" onclick='printChecked1()'> <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span>
+                          <span class="fa fa-star checked"></span> 5<br>
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- hgjkjg---------------- -->
+                
+              </div>
+            </div>
+        </div>
+      </div>
     </div>
-    <div class="col-lg-9 ">
+  </div>
+    <div class="col-lg-8 ">
     <!-- <div class="wrapper"> -->
-      <div class=" links box-element">
+      <div class=" links ">
         <ul>
-          <li data-view="list-view" class="li-list active">
+          <li data-view="list-view" class="li-list active btn">
             <i class="fas fa-th-large"></i>
             Grid View</li>
-          <li data-view="grid-view" class="li-grid">
+          <li data-view="grid-view" class="li-grid btn">
             <i class="fas fa-th-list"></i>
             List View</li>
         </ul>
+        <hr>
+        <li class="text-dark font-weight-light ml-2 text-center">
+          {{total_result}} Results</li>
+        <hr>
       </div>
       <div class="view_main">
         <div class="view_wrap list-view" style="display: block;">
-          <div class="row">
+          <div class="row ">
           {% for product in products %}
-          <div style="border-top: 4px solid #7298d4;" class=" col-lg-4 col-md-6 col-6 col-sm-6 text-center img-thumbnail my-2">
+          <div style="border-top: 4px solid #7298d4;" class="{{product.product_category}} r-{{product.rating}} resultblock col-lg-4 col-md-6 col-6 col-sm-6 text-center img-thumbnail my-2">
             <div class="vi_left">
           
               <img style="width: 75px;" src="{{product.product_img1.url}}" alt="potato">
@@ -59,7 +125,7 @@
               <p><b>By: </b>{{product.product_by}}</p>
               <p style="display: inline; "><i style="color: red;" class="fas fa-rupee-sign"></i> {{product.product_price}} <b>/</b> {{product.product_unit}} </p>
               <p class="content">{{product.product_description|slice:"0:50"}}...</p>
-              <a class="btn btn-outline-primary ml-3" href="/market/view/{{product.id}}/">View</a>
+              <a class="btn btn-primary ml-3" href="/market/view/{{product.id}}/">View</a>
               
               {% if user.is_authenticated  %}
               <a href="/market/{{product.id}}/" class=" ml-2 mr-auto text-dark"> <i style="color:green" class="fa fa-plus"></i>
@@ -91,7 +157,7 @@
           <div class="row">
           {% for product in products %}
           
-          <div style="border-left: 4px solid #7298d4;" class="col-lg-12 my-2    img-thumbnail">
+          <div style="border-left: 4px solid #7298d4;" class="{{product.product_category}} r-{{product.rating}} resultblock col-lg-12 my-2    img-thumbnail">
             <div class="row">
               <div class="col-lg-3 col-md-3 col-3 mt-4 my" >
                 
@@ -99,15 +165,21 @@
               </div>
               
             
-            <div class="col-lg-9 col-9 col-md-9 mt-3">
-              <h4 class="title  " style="color: #7298d4; font-weight: 700;">{{product.product_name}}</h4>
-              <p><i class="fas fa-rupee-sign"></i> {{product.product_price}} <b>/</b>{{product.product_unit}} </p>
+            <div class="col-lg-6 col-9 col-md-9 mt-3">
+              <h4 class="title mt-3 " style="color: #7298d4; font-weight: 700;">{{product.product_name}}</h4>
+              
               <p class="content ">{{product.product_description|slice:"0:50"}}....</p>
-              <a class="btn btn-outline-primary" href="/market/view/{{product.id}}/">View</a>
+
+              
+            </div>
+            <div class="col-lg-3 text-center" style="border-left: 1px solid grey;">
+              <p><i class="fas fa-rupee-sign mt-5 text-danger"></i> {{product.product_price}} <b>/</b>{{product.product_unit}} </p>
               {% if user.is_authenticated  %}
-              <a href="/market/{{product.id}}/" class=" ml-5 mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i>
+              <a href="/market/{{product.id}}/" class=" ml mr-auto text-dark"> <i style="color:green" class="fas fa-plus"></i>
               </a>
               {%endif%}
+            <a class="btn btn-primary ml-2" " href=" /market/view/{{product.id}}/">View</a>
+            
             </div>
             </div>
           </div>

@@ -1,6 +1,4 @@
-body{
 
-}
 #customnav {
     -webkit-box-shadow: 0 8px 6px -6px #999;
     -moz-box-shadow: 0 8px 6px -6px #999;
@@ -80,7 +78,7 @@ body{
   transition: width 0.4s ease-in-out;
    box-shadow: hsl(0, 0%, 80%) 0 0 16px;
 }
-.
+
 .container select option {
   width: 100%;
   box-sizing: border-box;
@@ -97,3 +95,4 @@ body{
 }
 
 
+/* filter------------------------------- */
