@@ -18,19 +18,19 @@
   <!-- Material Design Bootstrap -->
   <link rel="stylesheet" href="{% static 'css_bs/mdb.min.css' %}">
   <!-- Your custom styles (optional) -->
-  <link rel="stylesheet" href="{% static 'css_bs/style1.css' %}">
+  <link rel="stylesheet" href="{% static 'css_bs/style.css' %}">
   <!--  -->
   
 </head>
-<body>
+<body >
   
   <!--Main Navigation-->
   <header>
     
   <!--Navbar-->
-  <nav class="navbar navbar-expand-lg navbar-dark scrolling-navbar fixed-top">
+  <nav   class="navbar navbar-expand-lg navbar-dark scrolling-navbar fixed-top">
   
-    <div class="container">
+    <div class="container" >
       
   
       <!-- Navbar brand -->
@@ -43,7 +43,7 @@
       </button>
   
       <!-- Collapsible content -->
-      <div class="collapse navbar-collapse" id="basicExampleNav">
+      <div class="collapse navbar-collapse scroll" id="basicExampleNav">
   
         <!-- Links -->
         <ul class="navbar-nav mr-auto   smooth-scroll">
@@ -52,7 +52,7 @@
               <span class="sr-only">(current)</span>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" >
             <a class="nav-link" href="#bestFeatures">Features</a>
           </li>
           
@@ -61,7 +61,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu dropdown-primary" aria-labelledby="navbarDropdownMenuLink">
+            <div class="dropdown-menu dropdown-primary scroll" aria-labelledby="navbarDropdownMenuLink">
               <a class="dropdown-item" href="#gallary">Gallery</a>
               <a class="dropdown-item" href="#contact">Contact</a>
               
@@ -198,9 +198,9 @@
   <!--Main Navigation-->
   
   <!--Main layout-->
-  <main class="mt-5">
-    <section id="bestFeatures">
-    <div class="container">
+  <div class="mt-5" >
+    <section id="bestFeatures"  >
+    <div class="container" >
       <div class="row d-flex justify-content-center">
         <div class="col-lg-8 text-center">
 <h2>Special Features</h2>
@@ -238,7 +238,7 @@
     <hr class="mt-5">
   </div>
   <section id="gallary" class="mt-5">
-    <div class="container text-center">
+    <div class="container text-center scroll">
       <h2 class="font-weight-bolder mb-5">Gallary Heading</h2>
       <div class="row">
         <div class="col-md-5 mb-5">
@@ -302,7 +302,7 @@
     </div>
     <!-- hhhhhhh -->
   </section>
-  <div class="container">
+  <div class="container scroll">
     <hr class="mt-5">
   </div>
   <!-- gallary section completes -->
@@ -372,7 +372,7 @@
       </div>
     </div>
   </section>
-  </main>
+</div>
   <!--Main layout-->
   
   <!--Footer-->
@@ -516,6 +516,7 @@
   <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/scroll.js' %}"></script>
   <!-- Bootstrap tooltips -->
   <!-- <script type="text/javascript" src="home/templates/js/popper.min.js"></script>
   <!-- Bootstrap core JavaScript -->

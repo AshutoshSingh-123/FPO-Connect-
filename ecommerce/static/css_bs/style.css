@@ -67,6 +67,7 @@ transform: rotate(135deg);
 }
 
 .animated-icon1.open span:nth-child(2) {
+  
 opacity: 0;
 left: -60px;
 }
@@ -257,3 +258,4 @@ body {
  border-radius: 4px;
  padding: 10px;
 }
+/* srollere------------------------------------- */
