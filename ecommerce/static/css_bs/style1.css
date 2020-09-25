@@ -259,3 +259,6 @@ body {
  padding: 10px;
 }
 /* srollere------------------------------------- */
+input::placeholder {
+  font-size: 18px;
+}

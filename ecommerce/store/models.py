@@ -55,6 +55,10 @@ class Product(models.Model):
 
 class Cart(models.Model):
  cartuser=models.ForeignKey(User, on_delete=models.CASCADE, default=True)
+ cartuser_email=models.CharField(max_length=50, null=True)
+ date_added_on=models.DateTimeField(default=timezone.now)
+ by_fpo=models.ForeignKey(Fpo_Registeration, on_delete=models.CASCADE, default=True)
+ fpo_id=models.IntegerField(null=True) 
  name = models.CharField(max_length=50) 
  price =  models.IntegerField() 
  

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Product, Cart, Fpo_Registeration
+from users.models import Message
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (get_object_or_404, 
                               render,  
@@ -81,11 +82,14 @@ def addtocart(request, slag):
   repeat(request)
   
   item=Product.objects.get(pk=slag)
+  by_fpo=item.product_by
+  by1=Fpo_Registeration.objects.get(fpo_username=by_fpo)
+  by=by1.id
   name=item.product_name
   carts=Cart.objects.filter(cartuser=request.user)
     
   # --------------else adding to cart------------------------------
-  add=Cart(name=item.product_name, price=item.product_price, img=item.product_img1, cartuser=request.user,)
+  add=Cart(name=item.product_name, price=item.product_price, img=item.product_img1, cartuser=request.user, fpo_id=by, cartuser_email=request.user.email, by_fpo=by1)
   add.save()
   products=Product.objects.all()
   paginator = Paginator(products, 6)
@@ -100,9 +104,11 @@ def addtocart_onview_page(request, slag):
   item=Product.objects.get(pk=slag)
   name=item.product_name
   carts=Cart.objects.filter(cartuser=request.user)
-    
+  by_fpo=item.product_by
+  by1=Fpo_Registeration.objects.get(fpo_username=by_fpo)
+  by=by1.id
   # --------------else adding to cart------------------------------
-  add=Cart(name=item.product_name, price=item.product_price, img=item.product_img1, cartuser=request.user,)
+  add=Cart(name=item.product_name, price=item.product_price, img=item.product_img1, cartuser=request.user, fpo_id=by, cartuser_email=request.user.email, by_fpo=by1)
   add.save()
   products=Product.objects.get(pk=slag)
   similars=Product.objects.filter(product_category=products.product_category)
@@ -227,7 +233,7 @@ def viewpage(request, slug):
   user=User.objects.get(username=products.product_by)
   # print(products.product_by)
   fpo=Fpo_Registeration.objects.get(fpo_username=user)
-  
+  by=fpo.fpo_username
   similars=Product.objects.filter(product_category=products.product_category)
   similars2=Product.objects.filter(product_by=products.product_by)
   context={'product':products, 'total_items_in_cart':repeat(request), 'similars':similars, 'similars2':similars2, 'fpo':fpo}
@@ -235,22 +241,12 @@ def viewpage(request, slug):
     email=request.POST.get('email')
     name=request.POST.get('name')
     sub=request.POST.get('subject')
-    message=request.POST.get('message')
+    message1=request.POST.get('message')
     number=request.POST.get('number')
-    subject = sub
+    
       
-    message = f'''Hi 
-                     {user.username}, 
-                     username: {name},
-                     email: {email},
-                     phone number: {number},
-                     wants to contact with you.
-                     Message:
-                     {message}'''
-    email_from = settings.EMAIL_HOST_USER 
-    recipient_list = [user.email,  ] 
-     
-    send_mail( subject, message, email_from, recipient_list ) 
+    msg=Message(from1=request.user.username, to=fpo, email=email, subject=sub, message=message1, phone=number)
+    msg.save()
 
   return render(request, 'store/viewpage.html', context)
  
@@ -285,20 +281,10 @@ def fpo_view(request, slug):
     email=request.POST.get('email')
     name=request.POST.get('name')
     sub=request.POST.get('subject')
-    message=request.POST.get('message')
+    message1=request.POST.get('message')
     number=request.POST.get('number')
     subject = sub
-      
-    message = f'''Hi 
-                     {user.username}, 
-                     username: {name},
-                     email: {email},
-                     phone number: {number},
-                     wants to contact with you.
-                     Message:
-                     {message}'''
-    email_from = settings.EMAIL_HOST_USER 
-    recipient_list = [user.email,  ] 
-     
-    send_mail( subject, message, email_from, recipient_list ) 
+    msg=Message(from1=request.user.username, to=fpo, email=email, subject=sub, message=message1, phone=number)
+    msg.save()
+    
   return render(request, 'store/fpo_detail_view.html', context)

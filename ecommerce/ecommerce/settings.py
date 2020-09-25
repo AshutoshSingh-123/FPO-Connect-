@@ -32,6 +32,8 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'home',
+    'blog',
+    'crispy_forms',
     'store.apps.StoreConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',
@@ -57,7 +59,7 @@ ROOT_URLCONF = 'ecommerce.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['store/template', 'users/template', 'home/templates'],
+        'DIRS': ['store/template', 'users/template', 'home/templates','blog/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

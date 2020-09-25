@@ -18,7 +18,7 @@
   <!-- Material Design Bootstrap -->
   <link rel="stylesheet" href="{% static 'css_bs/mdb.min.css' %}">
   <!-- Your custom styles (optional) -->
-  <link rel="stylesheet" href="{% static 'css_bs/style.css' %}">
+  <link rel="stylesheet" href="{% static 'css_bs/style1.css' %}">
   <!--  -->
   
 </head>
@@ -89,7 +89,7 @@
       </a>
       <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
         <li>
-          <a class="dropdown-item" href="#"><i class="fab fa-blogger-b"></i> Blogs
+          <a class="dropdown-item" href="{% url 'blog-home' %}"><i class="fab fa-blogger-b"></i> Blogs
             </a>
         </li>
         <li>
@@ -109,7 +109,7 @@
         <hr class="dropdown-divider" />
         </li>
         <li>
-          <a class="dropdown-item" href="#"><i class="fas fa-chart-line"></i> Dashboard
+          <a class="dropdown-item" href="{% url 'fpo_dashboard' %}"><i class=" fas fa-chart-line"></i> Dashboard
           </a>
         </li>
         

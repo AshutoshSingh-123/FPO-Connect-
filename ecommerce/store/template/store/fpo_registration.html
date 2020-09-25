@@ -47,12 +47,12 @@
       <div class="row">
         <div class="col-lg-3 mt-5"></div>
         <div
-          class="col-lg-6 mt-5 box-element"
+          class="col-lg-6 mt-3 box-element"
           style="border: 2px solid whitesmoke"
         >
           <form id="regForm" method="POST" enctype="multipart/form-data">
             {% csrf_token %}
-            <h1 style="color: green">Register:</h1>
+            <h1 style="color: black" class="mb-5">Register</h1>
             <!-- One "tab" for each step in the form: -->
             <div class="tab">
               Username:
@@ -69,34 +69,7 @@
                 />
               </div>
             </div>
-            <div class="tab">
-              Contact Info:
-              <!-- <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p> -->
-              <div class="md-form form-sm">
-                <i class="fa fa-envelope prefix"></i>
-                <input
-                  type="email"
-                  name="email"
-                  oninput="this.className = ''"
-                  id="form2"
-                  class="form-control form-control-sm"
-                />
-                <label for="form2">Your email</label>
-              </div>
-              <div class="md-form form-sm">
-                <i class="far fa-comment-alt prefix"></i>
-                <textarea
-                  name="description"
-                  id="form22"
-                  cols="30"
-                  rows="10"
-                  oninput="this.className = ''"
-                  class="form-control form-control-sm"
-                ></textarea>
-
-                <label for="form22">About</label>
-              </div>
-            </div>
+           
             <div class="tab">
               FPO Info:
               <div class="md-form form-sm">
@@ -131,6 +104,7 @@
                   oninput="this.className = ''"
                   id="form5"
                   class="form-control form-control-sm"
+                  placeholder="Logo"
                 />
                 <label for="form5"></label>
               </div>
@@ -153,27 +127,47 @@
               </div>
             </div>
             <div class="tab">
+              Contact Info:
+              <!-- <p><input placeholder="E-mail..." oninput="this.className = ''" name="email"></p> -->
+              <div class="md-form form-sm">
+                <i class="fa fa-envelope prefix"></i>
+                <input type="email" name="email" oninput="this.className = ''" id="form2" class="form-control form-control-sm" />
+                <label for="form2">Your email</label>
+              </div>
+              <div class="md-form form-sm">
+                About:
+                <textarea name="description" id="form22" cols="20" rows="10" oninput="this.className = ''"
+                  class="form-control form-control-sm"></textarea>
+            
+                
+              </div>
+            </div>
+            <div class="tab">
               Login Info:
 
               <div class="md-form form-sm">
                 <i class="fas fa-phone-alt prefix"></i>
+                
                 <input
-                  type="number"
+                  type="tel"
                   name="number1"
                   oninput="this.className = ''"
-                  id="form66"
+                  id="form66" 
                   class="form-control form-control-sm"
+                  pattern="[0-9]{10}" minlength="10"
+                  maxlength="10"
                 />
                 <label for="form66">Mobile 1</label>
               </div>
               <div class="md-form form-sm">
                 <i class="fas fa-phone-alt prefix"></i>
                 <input
-                  type="number"
+                  type="tel"
                   name="number2"
                   oninput="this.className = ''"
-                  id="form67"
+                  id="form67" maxlength="10" minlength="10"
                   class="form-control form-control-sm"
+                  pattern="[0-9]{10}"
                 />
                 <label for="form67">Mobile 2</label>
               </div>

@@ -1,0 +1,48 @@
+{% extends 'blog/base.html' %}
+{% load crispy_forms_tags %}
+{% block body %}
+<div class="row">
+ <!-- <div class="col-lg-3"></div> -->
+ <div class="content_section col-lg-9">
+  <div class="media ">
+   <img src="{{ user.profile.image.url }}" class="rounded-circle account-img" alt="">
+ 
+   <div class="media-body">
+    <h2 class="account-heading">{{ user.username }}</h2>
+    <p class="text-secondary">{{ user.email }}</p>
+   </div>
+  </div>
+  <form action="" method="POST" enctype="multipart/form-data">
+   {% csrf_token %}
+   <fieldset class="form-group">
+    <legend class="border-bottom ">Profile Info Edit:</legend>
+    <div class="md-form form-sm ">
+     <p style="color:azure;">-</p> <i class="fa fa-user prefix "></i>
+     {{u_form.username}}
+     <label for="form33">Username</label>
+     <div class="text-danger mt-2" style="font-size: x-small;">{{u_form.username.errors}}</div>
+    </div>
+    <div class="md-form form-sm ">
+     <p style="color:azure;">-</p> <i class="fa fa-envelope prefix "></i>
+     {{u_form.email}}
+     <label for="form34">Email</label>
+ <div class="text-danger" style="font-size: x-small;">{{u_form.email.errors}}</div>
+    </div>
+    <div class="md-form form-sm ">
+     <p style="color:azure;">-</p> <i class="fa fa-image prefix "></i>
+     {{p_form.image}}
+     <label for="form35">Profile picture</label>
+ 
+    </div>
+    <!-- {{u_form|crispy}}
+    {{p_form|crispy}} -->
+   </fieldset>
+   <div class="form-group">
+    <button class="btn btn-outline-info " style="width: 100px;" type="submit">Update</button>
+   </div>
+  </form>
+ </div>
+</div>
+
+
+{% endblock %}
