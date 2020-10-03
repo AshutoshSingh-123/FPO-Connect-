@@ -1,6 +1,6 @@
-{% extends 'blog/base.html' %} 
+{% extends 'blog/base.html' %}
 {% block logo %}
-Blog
+Service
 {%endblock%}
 {% block body %}
 
@@ -8,13 +8,13 @@ Blog
  <form action="" method="POST">
   {% csrf_token %}
   <fieldset class="form-group">
-   <legend class="border-bottom mb-4">Delete Post</legend>
-   <h2 style="color: red;">Are you Sure?</h2><span>You want to delete {{object.title}}</span>
+   <legend class="border-bottom mb-4">Delete Service</legend>
+   <h2 style="color: red;">Are you Sure?</h2><span>You want to delete {{object.service_title}}</span>
 
   </fieldset>
   <div class="form-group">
    <button class="btn btn-danger" style="width: 100px;" type="submit">Yes Delete</button>
-<input style="width: 100px;" value="Cancle" type="button" class="btn btn-primary" onclick="history.go(-1)">
+   <input style="width: 100px;" value="Cancle" type="button" class="btn btn-primary" onclick="history.go(-1)">
   </div>
  </form>
 

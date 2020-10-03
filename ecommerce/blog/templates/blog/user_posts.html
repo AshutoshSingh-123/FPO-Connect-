@@ -1,5 +1,7 @@
 {% extends 'blog/base.html' %}
-
+{% block logo %}
+Blog
+{%endblock%}
 {% block body %}
 <h1 class="mb-3">Posted by {{view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
 {% for post in posts %}
@@ -11,7 +13,7 @@
    <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
   </div>
   <h2><a class="article-title" href="/blog/post/{{post.id}}">{{ post.title }}</a></h2>
-  <p class="article-content">{{ post.content }}</p>
+  <p class="article-content">{{ post.content|safe }}</p>
  </div>
 </article>
 {% endfor %}

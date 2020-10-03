@@ -2,7 +2,7 @@ from django.contrib.auth import login, authenticate
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, UserUpdateForm, ProfileUpdateForm
-from store.models import Product, Cart, Fpo_Registeration
+from store.models import Product, Cart, Fpo_Registeration, Service
 from blog.models import Post
 from .models import Message, Profile
 from django.contrib.auth.models import User
@@ -30,11 +30,13 @@ def fpo_dash(request):
      fpo=Fpo_Registeration.objects.get(fpo_username=request.user.username)
      wishlist_products=Cart.objects.filter(by_fpo=fpo)
      msgs=Message.objects.filter(to=fpo)
+     services=Service.objects.filter(service_by=fpo)
+     total_services=services.count()
      total_msg=msgs.count()
      total_wishlist=wishlist_products.count()
      total_post=posts.count()
      total_product=products.count()
-     context={'total_product':total_product, 'products':products, 'posts':posts, 'total_post':total_post, 'wishlist_products':wishlist_products, 'total_wishlist':total_wishlist, 'total_msg':total_msg, 'msgs':msgs}
+     context={'total_product':total_product, 'products':products, 'posts':posts, 'total_post':total_post, 'wishlist_products':wishlist_products, 'total_wishlist':total_wishlist, 'total_msg':total_msg, 'msgs':msgs, 'services':services, 'total_services':total_services}
      return render(request, 'fpo_dashboard.html',context)
 
 

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'home',
     'blog',
     'crispy_forms',
+    'ckeditor',
     'store.apps.StoreConfig',
     'users.apps.UsersConfig',
     'django.contrib.admin',

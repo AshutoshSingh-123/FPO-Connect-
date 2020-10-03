@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.urls import reverse
+from ckeditor.fields import RichTextField
 # Create your models here.
 class Fpo_Registeration(models.Model):
  
@@ -13,11 +14,11 @@ class Fpo_Registeration(models.Model):
  fpo_mobile1=models.IntegerField(null=True)
  fpo_mobile2=models.IntegerField(null=True)
  fpo_description=models.TextField()
-#  fpo_descripyion=models.TextField()
+
  area_pincode=models.IntegerField(null=True)
  total_members=models.IntegerField(null=True)
  fpo_img = models.ImageField(upload_to='images/FPO')
-#  description=models.TextField()
+
  
  
  def __str__(self):
@@ -40,7 +41,7 @@ class Product(models.Model):
  product_name = models.CharField(max_length=50) 
  product_category = models.CharField(max_length=6, choices=CATEGORY_CHOICES, null=True, blank=True)
  product_unit = models.CharField(max_length=6, choices=UNIT)
- product_price =  models.IntegerField() 
+ product_price =  models.FloatField(null=True) 
  product_description = models.TextField()
  product_img1 = models.ImageField(upload_to='images/product', default='images/product/cart.png') 
  product_img2 = models.ImageField(upload_to='images/product', default='images/product/cart.png') 
@@ -66,4 +67,20 @@ class Cart(models.Model):
 
  def __str__(self):
   return self.name
-  
+
+class Service(models.Model):
+  UNIT = (
+        ('Hrs.', 'Hrs.'),
+        ('Netting', 'Netting'),
+        ('Day', 'Day'),
+    )
+  service_unit = models.CharField(max_length=20, choices=UNIT)
+  service_price =  models.FloatField() 
+  service_by1=models.ForeignKey(User, on_delete=models.CASCADE, default=True)
+  service_by=models.ForeignKey(Fpo_Registeration, on_delete=models.CASCADE, default=True)
+  date_posted=models.DateTimeField(default=timezone.now)
+  service_description=RichTextField(blank=True, null=True)
+  service_title=models.CharField(max_length=50)
+  def get_absolute_url(self):
+   return reverse('services')
+

@@ -47,7 +47,7 @@
    
    <div class="app-header__logo">
     <div class="logo-src text-uppercase">
-     <h3 class="">Blogs</h1>
+     <h3 class="">{% block logo %}{%endblock%}</h1>
     </div>
     <div class="header__pane ml-auto">
      <div>
@@ -80,16 +80,7 @@
    <div class="app-header__content">
     <div class="app-header-left">
 
-     <ul class="header-menu nav">
-      
-      <li class="btn-group nav-item">
-       <a href="{% url 'post-create' %}" class="nav-link">
-        <i class="nav-link-icon fa fa-edit"></i>
-        New post
-       </a>
-      </li>
-
-     </ul>
+     
     </div>
     
     <div  class="app-header-right ">
@@ -99,8 +90,15 @@
       <div class="widget-content p-0">
         
        <div class="widget-content-wrapper">
-       
+      <ul class="header-menu nav mx-2">
+      
+      
+        {% block nav %}
+      
+        {% endblock %}
+      </ul>
         <div class="widget-content-left">
+          
           {{request.user.email}}
          <div class="btn-group" style="color: black;">
            
@@ -109,8 +107,14 @@
            <i style="color: black;" class="fa fa-angle-down mx-2 opacity-8"></i>
           </a>
           <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-           <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></button>
-           <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'profile' %}">Profile</a></button>
+            {% if user.is_authenticated %}
+            <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></button>
+            <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'profile' %}">Profile</a></button>
+            {% else %}
+            <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'login' %}">Login</a></button>
+
+            {% endif %}
+           
 
           </div>
           
@@ -187,17 +191,32 @@
         </a>
        </li>
        <li>
-        <a href="{% url 'store' %}" class="">
+        <a href="{% url 'store' %}" class="{%block marketactive%}{%endblock%}">
          <i class="fas fa-store"></i></i> Market Place
 
         </a>
        </li>
        <li>
-        <a href="{% url 'blog-home' %}" class="mm-active">
-         <i class="fas fa-blog"></i></i> Blog
+        <a href="{% url 'blog-home' %}" class="{%block blogactive%}{%endblock%}">
+         <i class="fas fa-blog"></i> Blog
 
         </a>
        </li>
+       <li>
+        <a href="{% url 'fpo_list' %}" class="{%block fpoactive%}{%endblock%}">
+        <i class="fas fa-users"></i> FPO's List
+
+        </a>
+       </li>
+       <li>
+        <a href="{% url 'services' %}" class="{%block serviceactive%}{%endblock%}">
+        <i class="fas fa-users"></i> Services
+
+        </a>
+       </li>
+      {% block filter %}
+     
+      {% endblock %}
 
       </ul>
      </div>
@@ -212,7 +231,8 @@
          <i class="pe-7s-car icon-gradient bg-mean-fruit">
          </i>
         </div>
-        <div>Blogs
+        <div>{% block title %}
+        {% endblock %}
          <div class="page-title-subheading">Welcome
          </div>
         </div>
@@ -241,6 +261,8 @@
   </div>
  </div>
  <script type="text/javascript" src="{% static 'js/fpo_dashboard.js' %}"></script>
+<script src="{% static 'js/product_view.js' %}"></script>
+<script src="{% static 'js/createproduct.js' %}"></script>
 </body>
 
 </html>

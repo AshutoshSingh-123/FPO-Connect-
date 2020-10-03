@@ -67,6 +67,12 @@
         New post
        </a>
       </li>
+      <li class="btn-group nav-item">
+       <a href="{% url 'service-create' %}" class="nav-link">
+        <i class="nav-link-icon fa fa-edit"></i>
+        New Service
+       </a>
+      </li>
 
      </ul>
     </div>
@@ -81,8 +87,13 @@
            <i class="fa fa-angle-down ml-2 opacity-8"></i>
           </a>
           <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
-           <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></button>
-           <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'profile' %}">Profile</a></button>
+          {% if user.is_authenticated %}
+          <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'logout' %}">Logout</a></button>
+          <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'profile' %}">Profile</a></button>
+          {% else %}
+          <button type="button" tabindex="0" class="dropdown-item"><a href="{% url 'login' %}">Login</a></button>
+          
+          {% endif %}
            
           </div>
          </div>
@@ -171,7 +182,18 @@
           
         </a>
        </li>
+<li>
+  <a href="{% url 'fpo_list' %}" class="{%block fpoactive%}{%endblock%}">
+    <i class="fas fa-users"></i> FPO's List
 
+  </a>
+</li>
+<li>
+  <a href="{% url 'services' %}" class="{%block serviceactive%}{%endblock%}">
+    <i class="fas fa-users"></i> Services
+
+  </a>
+</li>
       </ul>
      </div>
     </div>
@@ -199,7 +221,7 @@
         <div class="widget-content-wrapper text-white">
          <div class="widget-content-left">
           <div class="widget-heading">Products</div>
-          <div class="widget-subheading">Toatal product by {{request.user.username}}</div>
+          <div class="widget-subheading">Total product by {{request.user.username}}</div>
          </div>
          <div class="widget-content-right">
           <div class="widget-numbers text-white"><span>{{total_product}}</span></div>
@@ -347,6 +369,85 @@
       </div>
       <!-- ------------------------------------------ end ---------------------------------------- -->
      </div>
+    <div class="row">
+      <div class="col-md-6 col-xl-12">
+        <div class="card mb-3 widget-content">
+          <div class="widget-content-outer">
+            <div class="widget-content-wrapper">
+              <div class="widget-content-left">
+                <div class="widget-heading">Services</div>
+                <div class="widget-subheading">Total services provided by you</div>
+              </div>
+              <div class="widget-content-right">
+                <div class="widget-numbers text-success">{{total_services}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 col-12">
+        <div class="main-card mb-3 card">
+          <div class="card-header"> Services
+            <div class="btn-actions-pane-right">
+    
+            </div>
+          </div>
+    
+    
+    
+          <div class="table-responsive">
+            <table class="align-middle mb-0 table table-borderless table-striped table-hover">
+              <thead>
+                <tr>
+                  <th class="text-center">Date</th>
+                  <th class="text-center">Service Name</th>
+                  <th>Description</th>
+                  <th class="text-center"></th>
+                  <th class="text-center"></th>
+    
+                </tr>
+              </thead>
+              <tbody>
+                {% for service in services %}
+                <tr>
+                  <td class="text-center text-muted">{{service.date_posted}}</td>
+                  <td>
+                    <div class="widget-content p-0">
+                      <div class="widget-content-wrapper">
+                        <div class="widget-content-left mr-3">
+    
+                        </div>
+                        <div class="widget-content-left flex2">
+                          <div class="widget-heading">{{service.service_title}}</div>
+                          <div class="widget-subheading opacity-7"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-center">{{service.service_description|safe}}</td>
+                  <td class="text-center">
+                    <div class="widget-content-right"><a class=" my-4 " href="/market/service/{{service.id}}/update/">Edit <i
+                          class="nav-link-icon fa fa-edit"></i></a></div>
+                  </td>
+                  <td class="text-center">
+<div class="widget-content-right"><a class=" my-4 btn btn-outline-danger "
+    href="/market/service/{{service.id}}/delete/"><i class="fas fa-trash-alt"></i></a></div>                  </td>
+                </tr>
+                {%endfor%}
+              </tbody>
+            </table>
+          </div>
+    
+    
+    
+    
+    
+        </div>
+      </div>
+    </div>
      <div class="row">
       <div class="col-md-6 col-xl-12">
        <div class="card mb-3 widget-content">

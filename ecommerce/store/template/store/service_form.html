@@ -1,9 +1,9 @@
 {% extends 'blog/base.html' %}
 {% block logo %}
-Blog
+Services
 {%endblock%}
 {% block title %}
-New Post
+New Service
 {% endblock %}
 {% block body %}
 
@@ -11,21 +11,33 @@ New Post
  <form action="" method="POST">
   {% csrf_token %}
   <fieldset class="form-group">
-   <legend class="border-bottom mb-4">Blog Post</legend>
+   <legend class="border-bottom mb-4">New Service</legend>
    <div class="md-form form-sm ">
     <p style="color:azure;">-</p></i>
-    {{form.title}}
+    {{form.service_title}}
     <label for="form33">Title</label>
     <div class="text-danger mt-2" style="font-size: x-small;">{{form.title.errors}}</div>
    </div>
    <div class="md-form form-sm ">
-    <p style="color:azure;">-</p> 
+    <p style="color:azure;">-</p></i>
+    {{form.service_unit}}
+    <label for="form33">Unit</label>
+    <div class="text-danger mt-2" style="font-size: x-small;">{{form.title.errors}}</div>
+   </div>
+   <div class="md-form form-sm ">
+    <p style="color:azure;">-</p></i>
+    {{form.service_price}}
+    <label for="form33">Price/Unit</label>
+    <div class="text-danger mt-2" style="font-size: x-small;">{{form.title.errors}}</div>
+   </div>
+   <div class="md-form form-sm ">
+    <p style="color:azure;">-</p>
     {{form.media}}
-    {{form.content}}
-    <label  for="form33">Content</label>
+    {{form.service_description}}
+    <label for="form33">Description</label>
     <div class="text-danger mt-2" style="font-size: x-small;">{{form.content.errors}}</div>
    </div>
-   
+
   </fieldset>
   <div class="form-group">
    <button class="btn btn-info " style="width: 100px;" type="submit">Post</button>

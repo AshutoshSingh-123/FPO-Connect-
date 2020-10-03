@@ -16,10 +16,14 @@ Including another URLconf
 from . import views
 from django.urls import path
 from . import views as product_view
-from .views import product_fpo_del, product_fpo_update, fpo_update
+from .views import product_fpo_del, product_fpo_update, fpo_update, services, ServiceCreateView, ServiceUpdateView, ServiceDeleteView
 urlpatterns = [
 path('', views.store, name='store'),
 path('register/', views.fpo_register, name='fpo_register'),
+path('services/', views.services, name='services'),
+path('service/new/', ServiceCreateView.as_view(template_name='store/service_form.html'), name='service-create'),
+path('service/<int:pk>/update/', ServiceUpdateView.as_view(template_name='store/service_form.html'), name='post-update'),
+path('service/<int:pk>/delete/', ServiceDeleteView.as_view(template_name='store/service_delete.html/'), name='service-delete'),
 path('cart/', views.cart, name='cart'),
 path('allfpo/', views.fpo_listview, name='fpo_list'),
 path('fpo_view/<int:slug>/', views.fpo_view, name='fpo_view'),

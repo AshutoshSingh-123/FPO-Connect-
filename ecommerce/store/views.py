@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Cart, Fpo_Registeration
+from .models import Product, Cart, Fpo_Registeration, Service
 from users.models import Message
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (get_object_or_404, 
@@ -270,6 +270,8 @@ def fpo_listview(request):
 
 @login_required(login_url='login')  
 def fpo_view(request, slug):
+
+
   fpo=Fpo_Registeration.objects.get(pk=slug)
   by=fpo.fpo_username
   user =User.objects.get(username=by)
@@ -288,3 +290,47 @@ def fpo_view(request, slug):
     msg.save()
     
   return render(request, 'store/fpo_detail_view.html', context)
+
+def services(request):
+  services=Service.objects.all()
+  context={'services':services}
+  return render(request, 'store/services.html', context)
+
+class ServiceCreateView(LoginRequiredMixin, CreateView):
+ model=Service
+ fields = ['service_description', 'service_title', 'service_unit', 'service_price']
+ 
+ def form_valid(self, form):
+  user=self.request.user.username
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  form.instance.service_by = fpo
+  form.instance.service_by1 = self.request.user
+  return super().form_valid(form)
+
+class ServiceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+ model=Service
+ fields = ['service_description', 'service_title', 'service_unit', 'service_price']
+ 
+ def form_valid(self, form):
+  user=self.request.user.username
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  form.instance.service_by = fpo
+  form.instance.service_by1 = self.request.user
+  return super().form_valid(form)
+ def test_func(self):
+  service = self.get_object()
+  if self.request.user==service.service_by1:
+   return True
+  return False
+class ServiceDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin,):
+ model=Service
+ success_url = '/'
+ def test_func(self):
+  user=self.request.user.username
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  form.instance.service_by = fpo
+  form.instance.service_by1 = self.request.user
+  service = self.get_object()
+  if self.request.user==service.service_by1:
+   return True
+  return False
