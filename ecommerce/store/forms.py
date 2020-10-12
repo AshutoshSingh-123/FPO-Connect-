@@ -1,7 +1,7 @@
 from django import forms 
    
 # import GeeksModel from models.py 
-from .models import Fpo_Registeration 
+from .models import Fpo_Registeration, Ngo_Registeration  
    
 # create a ModelForm 
 class Fpo_Registeration_form(forms.ModelForm): 
@@ -9,3 +9,8 @@ class Fpo_Registeration_form(forms.ModelForm):
     class Meta: 
         model = Fpo_Registeration 
         fields = ['fpo_img']
+class Ngo_Registeration_form(forms.ModelForm): 
+    # specify the name of model to use 
+    class Meta: 
+        model = Ngo_Registeration 
+        fields = ['ngo_img']

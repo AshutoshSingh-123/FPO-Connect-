@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
-from .models import Product, Cart, Fpo_Registeration, Service
+from .models import Product, Cart, Fpo_Registeration, Service, Ngo_Registeration
 from users.models import Message
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (get_object_or_404, 
                               render,  
                               HttpResponseRedirect) 
-from .forms import Fpo_Registeration_form 
+from .forms import Fpo_Registeration_form, Ngo_Registeration_form 
 from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 from django.contrib.auth import login, authenticate
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView 
 
@@ -18,6 +19,8 @@ from django.conf import settings
 from django.core.mail import send_mail 
 from .decorator import allowed_users 
 from django.core.paginator import Paginator
+from .decorators import unauthenticated_user, allowed_users, user_only
+from django.utils.decorators import method_decorator
 # Create your views here.
 # cart fuctions
 def repeat(request):
@@ -169,7 +172,7 @@ class product_fpo_update(UpdateView):
   success_url='/market/'
 # --------------------------------------------end--------------------------------------------
 # -------------------fpo registration form-------------------------------------------------
- 
+@user_only
 def fpo_register(request): 
     context ={} 
     context['form']= Fpo_Registeration_form () 
@@ -189,6 +192,8 @@ def fpo_register(request):
       f=Fpo_Registeration(fpo_username=u, fpo_name = name, fpo_area = area, area_pincode = int(pincode), total_members =int(member) , fpo_email = email, fpo_img = img, fpo_mobile1=number1, fpo_mobile2=number2, fpo_description=description, fpo_category=category )
 
       f.save() 
+      group=Group.objects.get(name='FPO')
+      request.user.groups.add(group)
             # ------------------sending mail-----------------------------------------------
       subject = 'welcome to jaljeevika'
       subject1 = 'New FPO Registration'
@@ -211,7 +216,33 @@ def fpo_register(request):
     return render(request, "store/fpo_registration.html", context) 
 # ---------------------------------end--------------------------------------------------
 # ---------------------------------product createview--------------------------------------------------
+@user_only
+def ngo_register(request): 
+    context ={} 
+    context['form']= Ngo_Registeration_form () 
+    
+    if request.method=='POST':
+      email=request.POST.get('email')
+      name=request.POST.get('name')
+      number1=request.POST.get('number1')
+      number2=request.POST.get('number2')
+      description=request.POST.get('description')
+      area=request.POST.get('area')
+      pincode=request.POST.get('pincode')
+      member=request.POST.get('members')
+      u=request.POST.get('username')
+      img=request.FILES.get('image')
+      category = request.POST.get('category')
+      f=Ngo_Registeration(ngo_username=u, ngo_name = name, ngo_area = area, area_pincode = int(pincode),  ngo_email = email, ngo_img = img, ngo_mobile1=number1, ngo_mobile2=number2, ngo_description=description)
+      
+      f.save() 
+      group=Group.objects.get(name='NGO')
+      request.user.groups.add(group)
+      return render(request, "index.html")
+    return render(request, "store/ngo_registration.html", context)
 
+
+@method_decorator(allowed_users(allowed_roles=['FPO']), name='dispatch')
 class createview(LoginRequiredMixin, CreateView):
   
   model=Product
@@ -291,29 +322,47 @@ def fpo_view(request, slug):
     
   return render(request, 'store/fpo_detail_view.html', context)
 
+@login_required(login_url='login')  
+def ngo_view(request, slug):
+
+
+  fpo=Ngo_Registeration.objects.get(pk=slug)
+  by=fpo.ngo_username
+  user =User.objects.get(username=by)
+  by1=user.id
+  services = Service.objects.filter(service_by=by1)
+  print(user.email)
+  context={'fpo':fpo, 'services':services, 'total_items_in_cart':repeat(request)}
+  
+    
+  return render(request, 'store/ngo_detail_view.html', context)
+
 def services(request):
   services=Service.objects.all()
   context={'services':services}
   return render(request, 'store/services.html', context)
 
+@method_decorator(allowed_users(allowed_roles=['NGO']), name='dispatch')
 class ServiceCreateView(LoginRequiredMixin, CreateView):
  model=Service
  fields = ['service_description', 'service_title', 'service_unit', 'service_price']
+ group = None
  
  def form_valid(self, form):
   user=self.request.user.username
-  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  fpo=Ngo_Registeration.objects.get(ngo_username=user)
   form.instance.service_by = fpo
   form.instance.service_by1 = self.request.user
   return super().form_valid(form)
 
+@method_decorator(allowed_users(allowed_roles=['NGO']), name='dispatch')
 class ServiceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
  model=Service
  fields = ['service_description', 'service_title', 'service_unit', 'service_price']
  
  def form_valid(self, form):
   user=self.request.user.username
-  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  fpo=Ngo_Registeration.objects.get(ngo_username=user)
   form.instance.service_by = fpo
   form.instance.service_by1 = self.request.user
   return super().form_valid(form)
@@ -322,6 +371,8 @@ class ServiceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
   if self.request.user==service.service_by1:
    return True
   return False
+
+@method_decorator(allowed_users(allowed_roles=['NGO']), name='dispatch')
 class ServiceDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin,):
  model=Service
  success_url = '/'

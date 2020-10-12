@@ -1,0 +1,37 @@
+{% extends 'store/main.html' %} {% load static %} {% block content %}
+<div class="row">
+<div class="col-lg-6 text-center">
+ <img src="{% static 'images/farm4.png' %}" class="mt-5" style="width: 60px; height: 60px; border: 50%;" alt="">
+ <h2 class="my-2">{{fpo.ngo_name}}</h2>
+ <h5>{{fpo.ngo_area}} , India</h5>
+
+ <a href="#contact" class="btn btn-danger">Contact</a>
+
+</div>
+
+<div class="col-lg-6"><img class="img-fluid" style="width: 400px;" src="{{fpo.ngo_img.url}}" alt="">
+</div>
+
+</div>
+
+
+<div class="col-lg-12 my-3">
+ <h3 class="text-primary my-4">About:</h3>
+ {{fpo.ngo_description}}
+</div>
+ <div class="col-lg-12  mt-5 z-dep " style=" border-top: 3px solid #7298d4;">
+  <img style="width: 200px;" class="img-fluid" src="{% static 'images/contact-us.jpg' %}" alt="">
+  <span class="mt-3 text-primary font-weight-normal">Contact Info:
+   </h4>
+   <hr>
+   <h1 class="mt-5"></h1>
+ 
+   <h5 class="text-dark text-center"><i class="fa fa-envelope my-2 "></i> {{fpo.ngo_email}}</h5>
+   <div class="text-dark text-center">
+    <h5><i class="fas fa-phone-alt my-2 "></i> {{fpo.ngo_mobile1}}</h5>
+    <h5><i class="fas fa-phone-alt my-2 "></i> {{fpo.ngo_mobile2}}</h5>
+    <h5><i class="fas fa-compass "></i> {{fpo.ngo_area}} , India</h5>
+    <h5>Pincode: {{fpo.area_pincode}}</h5>
+   </div>
+ </div>
+{%endblock%}

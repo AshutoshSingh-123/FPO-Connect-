@@ -68,6 +68,21 @@ class Cart(models.Model):
  def __str__(self):
   return self.name
 
+
+
+class Ngo_Registeration(models.Model):
+ ngo_username=models.CharField(max_length=50)
+ ngo_name=models.CharField(max_length=50)
+ ngo_area=models.CharField(max_length=500)
+ ngo_email=models.CharField(max_length=500)
+ ngo_mobile1=models.IntegerField(null=True)
+ ngo_mobile2=models.IntegerField(null=True)
+ ngo_description=models.TextField()
+
+ area_pincode=models.IntegerField(null=True)
+ 
+ ngo_img = models.ImageField(upload_to='images/NGO')
+
 class Service(models.Model):
   UNIT = (
         ('Hrs.', 'Hrs.'),
@@ -77,10 +92,9 @@ class Service(models.Model):
   service_unit = models.CharField(max_length=20, choices=UNIT)
   service_price =  models.FloatField() 
   service_by1=models.ForeignKey(User, on_delete=models.CASCADE, default=True)
-  service_by=models.ForeignKey(Fpo_Registeration, on_delete=models.CASCADE, default=True)
+  service_by=models.ForeignKey(Ngo_Registeration, on_delete=models.CASCADE, default=True)
   date_posted=models.DateTimeField(default=timezone.now)
   service_description=RichTextField(blank=True, null=True)
   service_title=models.CharField(max_length=50)
   def get_absolute_url(self):
    return reverse('services')
-

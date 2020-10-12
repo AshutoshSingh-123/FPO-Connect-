@@ -20,6 +20,7 @@ from .views import product_fpo_del, product_fpo_update, fpo_update, services, Se
 urlpatterns = [
 path('', views.store, name='store'),
 path('register/', views.fpo_register, name='fpo_register'),
+path('register_ngo/', views.ngo_register, name='ngo_register'),
 path('services/', views.services, name='services'),
 path('service/new/', ServiceCreateView.as_view(template_name='store/service_form.html'), name='service-create'),
 path('service/<int:pk>/update/', ServiceUpdateView.as_view(template_name='store/service_form.html'), name='post-update'),
@@ -27,6 +28,7 @@ path('service/<int:pk>/delete/', ServiceDeleteView.as_view(template_name='store/
 path('cart/', views.cart, name='cart'),
 path('allfpo/', views.fpo_listview, name='fpo_list'),
 path('fpo_view/<int:slug>/', views.fpo_view, name='fpo_view'),
+path('ngo_view/<int:slug>/', views.ngo_view, name='ngo_view'),
 path('view/<int:slug>/', views.viewpage, name='view'),
 path('<int:slag>/detail/', views.detail, name='checkout'),
 path('<int:slag>/', views.addtocart, name='addtocart'),
