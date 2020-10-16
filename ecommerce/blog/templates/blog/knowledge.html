@@ -1,0 +1,144 @@
+{% extends 'blog/base.html' %}
+
+{%block knowledgeactive%}
+mm-active
+{%endblock%}
+{% block nav %}
+<!-- <li class="btn-group nav-item">
+ <a href="{% url 'post-create' %}" class="nav-link">
+  <i class="nav-link-icon fa fa-edit"></i>
+  New publication
+ </a>
+</li> -->
+{%endblock%}
+{% block logo %}
+Publication
+{%endblock%}
+{% block title %}
+Publication
+{% endblock %}
+
+{% block body %}
+
+<hr style="color: green;">
+<div class="container">
+ <div class="row">
+  <div class="col-lg-12">
+   
+  </div>
+ </div>
+ <div class="row">
+
+  <div class="col-lg-12 ">
+
+   <!-- <div class="wrapper"> -->
+   <div class=" links ">
+    <ul>
+     <li data-view="list-view" class="li-list active btn">
+      <i class="fas fa-th-large"></i>
+      Grid View</li>
+     <li data-view="grid-view" class="li-grid btn">
+      <i class="fas fa-th-list"></i>
+      List View</li>
+     <li class="btn" >
+      <span>
+        <form action="" method="POST">
+          {% csrf_token %}
+          <input style="width: 100px; height: 35px;"  type="submit" value="latest" name="latest" class="btn btn-primary">
+        </form>
+      </span>
+     </li>
+    </ul>
+
+    <form id="form1" action="" method="POST" class="">
+     {% csrf_token %}
+     <input type="text" name="search" placeholder="Search ..." />
+
+    </form>
+    <li class="text-dark font-weight-light my-2 ">
+     {{total_publications}} Results</li>
+
+
+   </div>
+   <div class="view_main">
+    <div class="view_wrap list-view" style="display: block;">
+     <div class="row ">
+      {% for publication in publications %}
+      <div style="border-top: 4px solid #7298d4;"
+       class="{{product.product_category}} r-{{product.rating}} resultblock col-lg-4 col-md-6 col-6 col-sm-6 text-center img-thumbnail my-2">
+       <div class="vi_left">
+
+        <img style="width: 100px; border-radius: 50%; height: 100px;" src="{{publication.image.url}}" alt="potato">
+       </div>
+       <div class="vi_right">
+        <p class="title text-black" style="display: inline;">{{publication.title}}</p>
+        <p><b>By: </b>Jaljeevika</p>
+        <p style="display: inline; font-size: x-small;"> {{publication.uploaded_at}}
+           </p>
+        <p class="content mt-2">{{publication.description|slice:"0:25"}}...</p>
+        {% if publication.link %}
+        <a class=" mr-5" href="{{publication.link}}">View online </a>
+      {%endif%}
+    {% if publication.document %}
+        <span><a href="{{publication.document.url}}"> Download <i class="fa fa-download"></i></a></span>
+       
+       {%endif%}
+       </div>
+      </div>
+      {% endfor %}
+
+     </div>
+
+
+     {% if products.has_other_pages %}
+     <nav aria-label="Page navigation conatiner"></nav>
+     <ul class="pagination justify-content-center">
+      {% if products.has_previous %}
+      <li><a href="?page={{ products.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+      {% endif %}
+      {% if products.has_next %}
+      <li><a href="?page={{ products.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+      {% endif %}
+     </ul>
+     </nav>
+    </div>
+    <!-- {% endif %} -->
+   </div>
+   <div class="view_wrap grid-view" style="display: none;">
+
+    <div class="row">
+     {% for publication in publications %}
+
+     <div style="border-left: 4px solid #7298d4;"
+      class="{{product.product_category}} r-{{product.rating}} resultblock col-lg-12 my-2    img-thumbnail">
+      <div class="row">
+       <div class="col-lg-3 col-md-3 col-3 mt-4 my">
+
+        <img class="img-fluid" style="width: 100px; height: 100px; border-radius: 50%;" src="{{publication.image.url}}" alt="strawberry">
+       </div>
+
+
+       <div class="col-lg-6 col-9 col-md-9 mt-3">
+        <h4 class="title mt-3 " style="color: #7298d4; font-weight: 700;">{{publication.title}}</h4>
+
+        <p class="content ">{{publication.description|slice:"0:30"}}....</p>
+
+
+       </div>
+       <div class="col-lg-3 text-center mt-3" style="border-left: 1px solid grey;">
+        <p> {{publication.uploaded_at}}
+        </p>
+        
+        {% if publication.link %}
+        <a class="mr-2" href="{{publication.link}}">View online </a>
+        {%endif%}
+        {% if publication.document %}
+        <span><a href="{{publication.document.url}}"> Download <i class="fa fa-download"></i></a></span>
+        
+        {%endif%}
+
+       </div>
+      </div>
+     </div>
+{%endfor%}
+{% endblock %}

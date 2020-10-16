@@ -97,16 +97,16 @@
               </div>
               <!--  -->
               <div class="md-form form-sm">
-                <i class="fa fa-images prefix"></i>
+                <i class="">LOGO</i>
+
                 <input
                   type="file"
                   name="image"
                   oninput="this.className = ''"
                   id="form5"
                   class="form-control form-control-sm"
-                  placeholder="Logo"
+                  placeholder="Logo" 
                 />
-                <label for="form5"></label>
               </div>
               <div class="md-form form-sm">
               <i class="fas fa-filter prefix "></i>
@@ -143,7 +143,7 @@
               </div>
             </div>
             <div class="tab">
-              Login Info:
+               Info:
 
               <div class="md-form form-sm">
                 <i class="fas fa-phone-alt prefix"></i>
@@ -180,7 +180,65 @@
                   id="form6"
                   class="form-control form-control-sm"
                 />
-                <label for="form6">Area..</label>
+                <label for="form6">Address- Floor/Building/Street</label>
+              </div>
+              <div class="md-form form-sm">
+                <i class="">State..</i>
+                
+                  <select name="state" id="listBox" style="width: 200px;" onchange='selct_district(this.value)'></select>
+                 
+                
+                <!-- <label for="form68"></label> -->
+              </div>
+              <div class="md-form form-sm">
+                <i class="">Distric.</i>
+               
+                <select name="distric" id='secondlist' style="width: 200px;"></select>
+              
+                <!-- <label for="form69"></label> -->
+              </div>
+              <div class="md-form form-sm">
+                <i class="">Registered with..</i>
+                
+                <select name="registered_with" id='' style="width: 200px;">
+                  <option value="Small Farmer Agribusiness Consortium SFAC">Small Farmer Agribusiness Consortium SFAC</option>
+                  <option value="National Bank for Agriculture and Rural Developement">National Bank for Agriculture and Rural Developement</option>
+                  <option value="State Goverment">State Goverment</option>
+                  <option value="Company Act">Company Act</option>
+                  <option value="Not registred from above options">Not registred from above options</option>
+                </select>
+                
+                <label for="form69"></label>
+              </div>
+                 <div class="md-form form-sm">
+                <!-- <i class="fa fa-images prefix"></i> -->
+                                <i class="">Pancard</i>
+
+
+                <input
+                  type="file"
+                  name="pancard"
+                  oninput="this.className = ''"
+                  id="form5"
+                  class="form-control form-control-sm"
+                  placeholder="Logo"
+                />
+                <!-- <label for="form5">Pancard(file)</label> -->
+              </div>
+                 <div class="md-form form-sm">
+                <!-- <i class="fa fa-images prefix"></i> -->
+                <i class="">Certificate</i>
+                                
+
+                <input
+                  type="file"
+                  name="certificate"
+                  oninput="this.className = ''"
+                  id="form5"
+                  class="form-control form-control-sm"
+                  placeholder="Logo" value="Certificate"
+                />
+                <!-- <label for="form5">Certificate(file)</label> -->
               </div>
               <!--  -->
               <div class="md-form form-sm">
@@ -309,6 +367,8 @@
       src="{% static 'js/bootstrap.min.js' %}"
     ></script>
     <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/state.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/statejquery.js' %}"></script>
 
     <script
       src="https://code.jquery.com/jquery-3.5.1.slim.min.js"

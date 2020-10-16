@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Product, Cart, Fpo_Registeration, Service, Ngo_Registeration
+from .models import Product, Cart, Fpo_Registeration, Service, Ngo_Registeration, ServiceForCustomer
 from users.models import Message
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import (get_object_or_404, 
@@ -21,6 +21,8 @@ from .decorator import allowed_users
 from django.core.paginator import Paginator
 from .decorators import unauthenticated_user, allowed_users, user_only
 from django.utils.decorators import method_decorator
+import random
+
 # Create your views here.
 # cart fuctions
 def repeat(request):
@@ -178,6 +180,13 @@ def fpo_register(request):
     context['form']= Fpo_Registeration_form () 
     
     if request.method=='POST':
+      n1 = random.randint(0,9)
+      n2 = random.randint(0,9)
+      n3 = random.randint(0,9)
+      n4 = random.randint(0,9)
+      n5 = random.randint(0,9)
+      n6 = random.randint(0,9)
+     
       email=request.POST.get('email')
       name=request.POST.get('name')
       number1=request.POST.get('number1')
@@ -186,10 +195,16 @@ def fpo_register(request):
       area=request.POST.get('area')
       pincode=request.POST.get('pincode')
       member=request.POST.get('members')
+      state=request.POST.get('state')
+      distric=request.POST.get('distric')
+      registered_with=request.POST.get('registered_with')
       u=request.POST.get('username')
       img=request.FILES.get('image')
+      pancard=request.FILES.get('pancard')
+      certificate=request.FILES.get('certificate')
       category = request.POST.get('category')
-      f=Fpo_Registeration(fpo_username=u, fpo_name = name, fpo_area = area, area_pincode = int(pincode), total_members =int(member) , fpo_email = email, fpo_img = img, fpo_mobile1=number1, fpo_mobile2=number2, fpo_description=description, fpo_category=category )
+      registeration_number=str(n1)+str(n2)+str(n3)+str(n4)+str(n5)+str(n6)+str(request.user.id)
+      f=Fpo_Registeration(fpo_username=u, fpo_name = name, fpo_area = area, area_pincode = int(pincode), total_members =int(member) , fpo_email = email, fpo_img = img, fpo_mobile1=number1, fpo_mobile2=number2, fpo_description=description, fpo_category=category, fpo_state=state, fpo_distric=distric, fpo_registered_with=registered_with, fpo_registeration_number=registeration_number, fpo_certificate=certificate, fpo_pancard=pancard )
 
       f.save() 
       group=Group.objects.get(name='FPO')
@@ -222,6 +237,12 @@ def ngo_register(request):
     context['form']= Ngo_Registeration_form () 
     
     if request.method=='POST':
+      n1 = random.randint(0,9)
+      n2 = random.randint(0,9)
+      n3 = random.randint(0,9)
+      n4 = random.randint(0,9)
+      n5 = random.randint(0,9)
+      n6 = random.randint(0,9)
       email=request.POST.get('email')
       name=request.POST.get('name')
       number1=request.POST.get('number1')
@@ -230,10 +251,19 @@ def ngo_register(request):
       area=request.POST.get('area')
       pincode=request.POST.get('pincode')
       member=request.POST.get('members')
+
+      state=request.POST.get('state')
+      distric=request.POST.get('distric')
+      registered_with=request.POST.get('registered_with')
+      pancard=request.FILES.get('pancard')
+      certificate=request.FILES.get('certificate')
+
       u=request.POST.get('username')
       img=request.FILES.get('image')
       category = request.POST.get('category')
-      f=Ngo_Registeration(ngo_username=u, ngo_name = name, ngo_area = area, area_pincode = int(pincode),  ngo_email = email, ngo_img = img, ngo_mobile1=number1, ngo_mobile2=number2, ngo_description=description)
+      registeration_number=str(n1)+str(n2)+str(n3)+str(n4)+str(n5)+str(n6)+str(request.user.id)
+
+      f=Ngo_Registeration(ngo_username=u, ngo_name = name, ngo_area = area, area_pincode = int(pincode),  ngo_email = email, ngo_img = img, ngo_mobile1=number1, ngo_mobile2=number2, ngo_description=description, ngo_state=state, ngo_distric=distric, ngo_registered_with=registered_with, ngo_registeration_number=registeration_number, ngo_certificate=certificate, ngo_pancard=pancard)
       
       f.save() 
       group=Group.objects.get(name='NGO')
@@ -337,10 +367,17 @@ def ngo_view(request, slug):
     
   return render(request, 'store/ngo_detail_view.html', context)
 
+@login_required(login_url='login')
 def services(request):
   services=Service.objects.all()
   context={'services':services}
   return render(request, 'store/services.html', context)
+
+@login_required(login_url='login')
+def customer_services(request):
+  services=ServiceForCustomer.objects.all()
+  context={'services':services}
+  return render(request, 'store/service_customer.html', context)
 
 @method_decorator(allowed_users(allowed_roles=['NGO']), name='dispatch')
 class ServiceCreateView(LoginRequiredMixin, CreateView):
@@ -375,7 +412,51 @@ class ServiceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 @method_decorator(allowed_users(allowed_roles=['NGO']), name='dispatch')
 class ServiceDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin,):
  model=Service
- success_url = '/'
+ success_url = '/ngo_dashboard/'
+ def test_func(self):
+  user=self.request.user.username
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  form.instance.service_by = fpo
+  form.instance.service_by1 = self.request.user
+  service = self.get_object()
+  if self.request.user==service.service_by1:
+   return True
+  return False
+
+@method_decorator(allowed_users(allowed_roles=['FPO']), name='dispatch')
+class CustomerServiceCreateView(LoginRequiredMixin, CreateView):
+ model=ServiceForCustomer
+ fields = ['service_description', 'service_title', 'service_unit', 'service_price']
+ group = None
+ 
+ def form_valid(self, form):
+  user=self.request.user.username
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  form.instance.service_by = fpo
+  form.instance.service_by1 = self.request.user
+  return super().form_valid(form)
+
+@method_decorator(allowed_users(allowed_roles=['FPO']), name='dispatch')
+class CustomerServiceUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+ model=ServiceForCustomer
+ fields = ['service_description', 'service_title', 'service_unit', 'service_price']
+ 
+ def form_valid(self, form):
+  user=self.request.user.username
+  fpo=Fpo_Registeration.objects.get(fpo_username=user)
+  form.instance.service_by = fpo
+  form.instance.service_by1 = self.request.user
+  return super().form_valid(form)
+ def test_func(self):
+  service = self.get_object()
+  if self.request.user==service.service_by1:
+   return True
+  return False
+
+@method_decorator(allowed_users(allowed_roles=['FPO']), name='dispatch')
+class CustomerServiceDeleteView(DeleteView, LoginRequiredMixin, UserPassesTestMixin,):
+ model=ServiceForCustomer
+ success_url = '/fpo_dashboard/'
  def test_func(self):
   user=self.request.user.username
   fpo=Fpo_Registeration.objects.get(fpo_username=user)

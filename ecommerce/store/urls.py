@@ -16,15 +16,19 @@ Including another URLconf
 from . import views
 from django.urls import path
 from . import views as product_view
-from .views import product_fpo_del, product_fpo_update, fpo_update, services, ServiceCreateView, ServiceUpdateView, ServiceDeleteView
+from .views import product_fpo_del, product_fpo_update, fpo_update, services, customer_services, ServiceCreateView, ServiceUpdateView, ServiceDeleteView, CustomerServiceCreateView, CustomerServiceUpdateView, CustomerServiceDeleteView
 urlpatterns = [
 path('', views.store, name='store'),
 path('register/', views.fpo_register, name='fpo_register'),
 path('register_ngo/', views.ngo_register, name='ngo_register'),
 path('services/', views.services, name='services'),
+path('customer_services/', views.customer_services, name='customer_services'),
 path('service/new/', ServiceCreateView.as_view(template_name='store/service_form.html'), name='service-create'),
-path('service/<int:pk>/update/', ServiceUpdateView.as_view(template_name='store/service_form.html'), name='post-update'),
+path('customer_service/new/', CustomerServiceCreateView.as_view(template_name='store/service_customer_form.html'), name='customer-service-create'),
+path('service/<int:pk>/update/', ServiceUpdateView.as_view(template_name='store/service_form.html'), name='service-update'),
+path('customer_service/<int:pk>/update/', CustomerServiceUpdateView.as_view(template_name='store/service_customer_form.html'), name='service-update-customer'),
 path('service/<int:pk>/delete/', ServiceDeleteView.as_view(template_name='store/service_delete.html/'), name='service-delete'),
+path('customer_services/<int:pk>/delete/', CustomerServiceDeleteView.as_view(template_name='store/service_customer_delete.html/'), name='service-delete-customer'),
 path('cart/', views.cart, name='cart'),
 path('allfpo/', views.fpo_listview, name='fpo_list'),
 path('fpo_view/<int:slug>/', views.fpo_view, name='fpo_view'),

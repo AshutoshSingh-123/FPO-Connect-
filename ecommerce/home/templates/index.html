@@ -34,7 +34,7 @@
       
   
       <!-- Navbar brand -->
-      <a class="navbar-brand" href="#"><img style="width: 70px;" src="{% static 'images/FPOlogo.png' %}" alt=""></a>
+      <a class="navbar-brand" href="{% url 'home' %}"><img style="width: 70px;" src="{% static 'images/FPOlogo.png' %}" alt=""></a>
   
       <!-- Collapse button -->
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
@@ -48,7 +48,7 @@
         <!-- Links -->
         <ul class="navbar-nav mr-auto   smooth-scroll">
           <li class="nav-item active">
-            <a class="nav-link" href="#intro">Home
+            <a class="nav-link" href="{% url 'home' %}">Home
               <span class="sr-only">(current)</span>
             </a>
           </li>
@@ -106,7 +106,7 @@
         </li>
         {% if request.user.is_staff %}
         <li class="nav-item">
-          <a class="dropdown-item" href="#"><i class="fas fa-address-book"></i> Courses
+          <a class="dropdown-item" href="{% url 'knowledge' %}"><i class="fas fa-address-book"></i> Courses
           </a>
         </li>
         <li>
@@ -177,7 +177,7 @@
           
          </h5>
           <div class="col-lg-10"></div>
-          <div class="col-lg-3 mt-2">
+          <div class="col-lg-10 mt-2">
             {% if user.is_authenticated and user.is_staff   %}
 
 
@@ -186,13 +186,15 @@
             
             {% elif user.is_authenticated %}
             
-            <a style="display: block;" class="btn btn-outline-white" href="{% url 'fpo_register' %}"><i class="fas fa-book "></i> Register As An FPO
+            <a style="display: inline;" class="btn btn-outline-white" href="{% url 'fpo_register' %}"><i class="fas fa-book "></i> Register As An FPO
             </a>
-            <a style="display: block;" class="btn btn-outline-white" href="{% url 'ngo_register' %}"><i class="fas fa-book "></i> Register As An NGO
-            </a>
+            <span><a style="display: inline;" class="btn btn-outline-white" href="{% url 'ngo_register' %}"><i class="fas fa-book "></i>
+              Register As An Organisation
+            </a></span>
+            
             
             {% else %}
-            <a style="display: block;" class="btn btn-outline-white"   href="{% url 'signup' %}" " "><i class="fas fa-book "></i> Register As An User</a>
+            <a style="display: block; margin-left: 200px;" class="btn btn-outline-white w-50 "   href="{% url 'signup' %}" " "><i class="fas fa-book "></i> Register As An User</a>
             {% endif %}
           </div>
           

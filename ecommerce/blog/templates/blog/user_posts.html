@@ -5,7 +5,20 @@ Blog
 {% block body %}
 <h1 class="mb-3">Posted by {{view.kwargs.username}} ({{ page_obj.paginator.count }})</h1>
 {% for post in posts %}
-<article class="media content-section ">
+<div class="card" style="width: 18rem; display: inline-block;">
+ <img class="card-img-top" src="{{post.author.profile.image.url}}" alt="Card image cap">
+ <div class="card-body">
+  <a class="mr-2" href="{% url 'user-posts' post.author.username  %}">{{ post.author }}</a>
+   <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+   <h4><a class="article-title" href="/blog/post/{{post.id}}">{{ post.title }}</a></h4>
+  <p class="card-text">{{ post.content | safe| slice:":10" }}
+  </p>
+  <a href="/blog/post/{{post.id}}" class="btn btn-primary">Read more..</a>
+ </div>
+</div>
+
+<!--  -->
+<!-- <article class="media content-section ">
  <img class="rounded-circle account-img" src="{{post.author.profile.image.url}}" alt="" srcset="">
  <div class="media-body">
   <div class="article-metadata">
@@ -15,7 +28,7 @@ Blog
   <h2><a class="article-title" href="/blog/post/{{post.id}}">{{ post.title }}</a></h2>
   <p class="article-content">{{ post.content|safe }}</p>
  </div>
-</article>
+</article> -->
 {% endfor %}
 <!-- pagination -->
 {% if is_paginated %}

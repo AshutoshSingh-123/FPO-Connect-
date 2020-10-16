@@ -51,17 +51,17 @@
      </div>
 
      <div class="tab">
-      FPO Info:
+      Organisation Info:
       <div class="md-form form-sm">
        <i class="fa fa-user prefix"></i>
        <input type="text" oninput="this.className = ''" name="name" id="form3" class="form-control form-control-sm" />
-       <label for="form3">NGO name..</label>
+       <label for="form3">Organisation name..</label>
       </div>
       <!--  -->
       
       <!--  -->
       <div class="md-form form-sm">
-       <i class="fa fa-images prefix"></i>
+       <i class="">LOGO</i>
        <input type="file" name="image" oninput="this.className = ''" id="form5" class="form-control form-control-sm"
         placeholder="Logo" />
        <label for="form5"></label>
@@ -85,7 +85,7 @@
       </div>
      </div>
      <div class="tab">
-      Login Info:
+      Info:
 
       <div class="md-form form-sm">
        <i class="fas fa-phone-alt prefix"></i>
@@ -103,9 +103,60 @@
       <div class="md-form form-sm">
        <i class="fa fa-thumbtack prefix"></i>
        <input type="text" name="area" oninput="this.className = ''" id="form6" class="form-control form-control-sm" />
-       <label for="form6">Address..</label>
+       <label for="form6">Address- Floor/Building/Street</label>
       </div>
       <!--  -->
+      <div class="md-form form-sm">
+        <i class="">State..</i>
+      
+        <select name="state" id="listBox" style="width: 200px;" onchange='selct_district(this.value)'></select>
+      
+      
+        <!-- <label for="form68"></label> -->
+      </div>
+      <div class="md-form form-sm">
+        <i class="">Distric.</i>
+      
+        <select name="distric" id='secondlist' style="width: 200px;"></select>
+      
+        <!-- <label for="form69"></label> -->
+      </div>
+      <div class="md-form form-sm">
+        <i class="">Sector..</i>
+      
+        <select name="registered_with" id='' style="width: 200px;">
+          <option value="Agriculture">Agriculture</option>
+          <option value="Fishery">Fishery</option>
+          <option value="Manufacturing">Manufacturing</option>
+          <option value="IT">IT</option>
+          <option value="Assembly">Assembly</option>
+          <option value="Consultancy">Consultancy</option>
+          <option value="Management">Management</option>
+          <option value="Financial">Financial</option>
+          <option value="Research">Research</option>
+          <option value="Institution">Institution</option>
+        </select>
+      
+        <label for="form69"></label>
+      </div>
+      <div class="md-form form-sm">
+        <!-- <i class="fa fa-images prefix"></i> -->
+        <i class="">Pancard</i>
+      
+      
+        <input type="file" name="pancard" oninput="this.className = ''" id="form5" class="form-control form-control-sm"
+          placeholder="Logo" />
+        <!-- <label for="form5">Pancard(file)</label> -->
+      </div>
+      <div class="md-form form-sm">
+        <!-- <i class="fa fa-images prefix"></i> -->
+        <i class="">Certificate</i>
+      
+      
+        <input type="file" name="certificate" oninput="this.className = ''" id="form5" class="form-control form-control-sm"
+          placeholder="Logo" value="Certificate" />
+        <!-- <label for="form5">Certificate(file)</label> -->
+      </div>
       <div class="md-form form-sm">
        <i class="fa fa-thumbtack prefix"></i>
        <input type="number" name="pincode" oninput="this.className = ''" id="form7"
@@ -218,7 +269,8 @@
  <script type="text/javascript" src="{% static 'js/popper.min.js' %}"></script>
  <script type="text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
  <script type="text/javascript" src="{% static 'js/mdb.min.js' %}"></script>
-
+<script type="text/javascript" src="{% static 'js/state.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/statejquery.js' %}"></script>
  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
   integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"

@@ -38,6 +38,8 @@
 <link rel="stylesheet" href="{% static 'css/createproduct.css' %}" type="text/css" />
 <link rel="stylesheet" href="{% static 'css/viewpage2.css' %}" type="text/css" />
  <link rel="stylesheet" href="{% static 'css/blog1.css' %}">
+<script src="{% static 'js/product_view.js' %}"></script>
+<script src="{% static 'js/createproduct.js' %}"></script>
 
 </head>
 
@@ -190,6 +192,13 @@
           Dashboard
         </a>
       </li>
+      {% else %}
+      <li>
+        <a href="{% url 'ngo_dashboard' %}">
+          <i class="fas fa-chart-line"></i></i> 
+          Dashboard
+        </a>
+      </li>
       {%endif%}
       
        <li>
@@ -206,16 +215,33 @@
        </li>
        <li>
         <a href="{% url 'fpo_list' %}" class="{%block fpoactive%}{%endblock%}">
-        <i class="fas fa-users"></i> FPO's List
+        <i class="fas fa-users"></i> FPO's Directory
 
         </a>
        </li>
+       {% if user.is_staff %}
        <li>
         <a href="{% url 'services' %}" class="{%block serviceactive%}{%endblock%}">
         <i class="fas fa-users"></i> Services
 
         </a>
        </li>
+       {%else%}
+      <li>
+        <a href="{% url 'customer_services' %}" class="{%block servicesactive%}{%endblock%}">
+          <i class="fas fa-users"></i> Services
+      
+        </a>
+      </li>
+       {%endif%}
+       <li>
+        <a href="{% url 'knowledge' %}" class="{%block knowledgeactive%}
+{%endblock%}">
+        <i class="fas fa-book"></i> Publications
+
+        </a>
+       </li>
+       
       {% block filter %}
      
       {% endblock %}

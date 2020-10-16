@@ -20,13 +20,15 @@ from django.conf.urls.static import static
 from store.views import *
 from users import views as user_views
 from django.contrib.auth import views as auth_views
-
+from django.conf.urls import url
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('blog/', include('blog.urls')),
     path('', include('home.urls')),
     path('market/', include('store.urls')),
     path('signup/', user_views.signup, name='signup'),
+    url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        user_views.activate, name='activate'),
     path('fpo_dashboard/', user_views.fpo_dash, name='fpo_dashboard'),
     path('ngo_dashboard/', user_views.ngo_dash, name='ngo_dashboard'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),

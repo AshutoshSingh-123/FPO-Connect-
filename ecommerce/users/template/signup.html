@@ -65,6 +65,18 @@
                 <label for="form8">Confirm Password</label>
                 <div class="text-danger" style="font-size: x-small;">{{form_signup.password2.errors}}</div>
               </div>
+              {% if agree %}
+              <div class="md-form form-sm">
+                <input type="checkbox" value='agree' name='agree'> <a href="#">Agree terms and conditions</a>
+              </div>
+              {%else%}
+
+              <div class="md-form form-sm">
+                <input type="checkbox" value='agree' name='agree'> <a href="#" >Agree terms and conditions</a>
+                <p class="text-danger" style="font-size: x-small;" > You have to agree to terms and conditions.</p>
+              </div>
+              {%endif%}
+              
               <div class="text-center mt-2">
                 <button class="btn btn-primary" type="submit">Signup <i class="fa fa-paper-plane-o ml-1"></i></button>
               </div>
