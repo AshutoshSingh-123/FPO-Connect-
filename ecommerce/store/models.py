@@ -119,6 +119,8 @@ class Service(models.Model):
    return ('Service name: '+ self.service_title)
 
 
+
+
 class ServiceForCustomer(models.Model):
   UNIT = (
         ('Hrs.', 'Hrs.'),

@@ -6,8 +6,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-# from django.views.generic.edit import FormView 
-# from .forms import GeeksForm 
+from django.views.generic.edit import FormView 
+from .forms import GeeksForm 
 
 # Create your views here.
 # @login_required
@@ -44,9 +44,10 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
  model=Post
 
+# 
 class PostCreateView(LoginRequiredMixin, CreateView):
  model=Post
-#  form_class = GeeksForm 
+
  fields = ['title', 'content', 'tag', 'category' ]
 
  def form_valid(self, form):
